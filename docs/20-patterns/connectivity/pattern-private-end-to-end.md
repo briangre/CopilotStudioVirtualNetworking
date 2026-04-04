@@ -9,7 +9,7 @@ Power Platform connects to a Databricks MCP endpoint entirely within an Azure VN
 ```mermaid
 flowchart LR
     subgraph PowerPlatform["Power Platform"]
-        agent["Copilot Studio Agent\n/ Power Automate Flow"]
+        agent["Copilot Studio Agent"]
         connector["Custom Connector"]
     end
     subgraph Azure["Azure VNet"]

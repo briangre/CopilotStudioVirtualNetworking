@@ -7,7 +7,7 @@ Describes the Databricks MCP endpoint backed by a **SQL Warehouse** (`mcpsql`), 
 ## When to Use
 
 Reference this component when:
-- You need a Power Platform agent or flow to query structured data in a Databricks SQL Warehouse via the MCP protocol.
+- You need a Copilot Studio agent to query structured data in a Databricks SQL Warehouse via the MCP protocol.
 - You are configuring the `mcpsql` endpoint URL and authentication for a connector.
 
 ## Inputs / Prerequisites

@@ -1,6 +1,6 @@
 # Copilot Studio → Azure Databricks
 
-Componentized documentation for connecting **Power Platform** (Copilot Studio, Power Automate, Power Apps) to **Azure Databricks** MCP endpoints (`mcpsql`, `mcpgenie`) across multiple connectivity and authentication architectures.
+Componentized documentation for connecting **Copilot Studio agents** to **Azure Databricks** MCP endpoints (`mcpsql`, `mcpgenie`) across multiple connectivity and authentication architectures.
 
 ## How to Navigate
 

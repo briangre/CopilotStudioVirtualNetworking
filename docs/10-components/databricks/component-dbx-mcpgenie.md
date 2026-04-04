@@ -7,7 +7,7 @@ Describes the Databricks MCP endpoint backed by **AI/BI Genie** (`mcpgenie`), it
 ## When to Use
 
 Reference this component when:
-- You need a Power Platform agent to answer natural-language questions about data using Databricks AI/BI Genie.
+- You need a Copilot Studio agent to answer natural-language questions about data using Databricks AI/BI Genie.
 - You are configuring the `mcpgenie` endpoint URL and authentication for a connector.
 
 ## Inputs / Prerequisites

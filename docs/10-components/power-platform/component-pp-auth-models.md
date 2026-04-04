@@ -36,7 +36,7 @@ Reference this component when:
 
 - The connector passes the signed-in user's identity through to Databricks.
 - Requires the calling user to have been granted access in the Databricks workspace.
-- Suitable for Power Apps where the end-user identity matters for data access control.
+- Suitable for Copilot Studio agents where the end-user identity matters for data access control.
 - See [pattern-oauth-obo](../../20-patterns/authentication/pattern-oauth-obo.md).
 
 ### API Key / PAT (Personal Access Token)
