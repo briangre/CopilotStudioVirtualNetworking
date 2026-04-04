@@ -32,14 +32,14 @@ Reference this component when:
 
 ## Configuration Steps
 
-1. In Power Apps / Power Automate / Copilot Studio, search for the Databricks connector in the connector gallery.
+1. In Copilot Studio, search for the Databricks connector in the connector gallery.
 2. Select "Add a connection" and provide the Databricks workspace URL and auth credentials.
 3. Confirm the connection status is "Connected".
 4. Add a connector action to your flow/agent and configure the required inputs.
 
 ## Validation Steps
 
-1. Use the built-in "Test" feature in Power Automate to invoke a connector action.
+1. Use the built-in "Test" feature in Copilot Studio to invoke a connector action.
 2. Verify the response body matches the expected schema.
 3. Check the Power Platform admin center for DLP policy violations.
 4. Confirm token refresh works by waiting for the initial token to expire and retrying. TODO: confirm token TTL.

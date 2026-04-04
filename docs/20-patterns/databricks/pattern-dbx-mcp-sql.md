@@ -2,14 +2,14 @@
 
 ## Pattern Statement
 
-A Power Platform connector queries structured data in a Databricks SQL Warehouse using the MCP SQL endpoint (`mcpsql`), authenticated via OAuth 2.0 client credentials.
+A Copilot Studio agent queries structured data in a Databricks SQL Warehouse using the MCP SQL endpoint (`mcpsql`), authenticated via OAuth 2.0 client credentials.
 
 ## Architecture Diagram
 
 ```mermaid
 flowchart LR
-    subgraph PP["Power Platform"]
-        agent["Copilot Studio / Flow"]
+    subgraph PP["Copilot Studio"]
+        agent["Copilot Studio Agent"]
         conn["Connector (OOB or Custom)"]
     end
     subgraph DBX["Databricks"]
@@ -51,7 +51,7 @@ flowchart LR
 - [ ] MCP `tools/list` returns the expected SQL tools.
 - [ ] MCP `tools/call` with a test query returns correct data.
 - [ ] Token is accepted (no 401/403).
-- [ ] End-to-end call from Copilot Studio agent / Power Automate flow returns expected result.
+- [ ] End-to-end call from Copilot Studio agent returns expected result.
 
 ## Related Config Paths
 

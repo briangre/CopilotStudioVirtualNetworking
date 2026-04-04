@@ -1,6 +1,6 @@
 # Overview
 
-This documentation set describes how to connect **Power Platform** (Copilot Studio, Power Automate, Power Apps) to **Azure Databricks** MCP endpoints (`mcpsql` and `mcpgenie`) across a range of connectivity and authentication architectures.
+This documentation set describes how to connect **Copilot Studio agents** to **Azure Databricks** MCP endpoints (`mcpsql` and `mcpgenie`) across a range of connectivity and authentication architectures.
 
 ## Purpose
 
@@ -19,7 +19,7 @@ Rather than writing one end-to-end guide per configuration, this set uses a **co
 
 Each configuration is defined by choices along four dimensions:
 
-1. **Power Platform surface** – Copilot Studio / Power Automate / Power Apps
+1. **Copilot Studio agent** – the Power Platform surface used to connect to Databricks
 2. **Connector type** – Out-of-box (OOB) vs. Custom connector
 3. **Network path** – Public (internet-routable) vs. Private (VNet/Private Endpoint)
 4. **Databricks endpoint** – `mcpsql` (SQL warehouse) vs. `mcpgenie` (AI/BI Genie)
@@ -34,5 +34,5 @@ APIM is an optional proxy layer applicable to the private network path.
 
 ## Scope
 
-- **In scope**: Connectivity, authentication, and network configuration for Power Platform ↔ Databricks.
+- **In scope**: Connectivity, authentication, and network configuration for Copilot Studio agents ↔ Databricks.
 - **Out of scope**: Databricks workspace provisioning, Power Platform environment setup, Azure subscription management (except where directly referenced).

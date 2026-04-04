@@ -2,14 +2,14 @@
 
 ## Pattern Statement
 
-Power Platform connects to a Databricks MCP endpoint over the public internet using an OOB or custom connector, with OAuth 2.0 authentication and no private networking infrastructure.
+A Copilot Studio agent connects to a Databricks MCP endpoint over the public internet using an OOB or custom connector, with OAuth 2.0 authentication and no private networking infrastructure.
 
 ## Architecture Diagram
 
 ```mermaid
 flowchart LR
-    subgraph PowerPlatform["Power Platform"]
-        agent["Copilot Studio Agent\n/ Power Automate Flow"]
+    subgraph PowerPlatform["Copilot Studio"]
+        agent["Copilot Studio Agent"]
         connector["OOB or Custom\nConnector"]
     end
     subgraph Azure["Azure (Public Endpoint)"]

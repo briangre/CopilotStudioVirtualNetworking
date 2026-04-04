@@ -2,14 +2,14 @@
 
 ## Pattern Statement
 
-A Power Platform connector passes the signed-in user's identity to Databricks using the OAuth 2.0 On-Behalf-Of (OBO) grant, so that Databricks can enforce per-user access controls.
+A Copilot Studio agent passes the signed-in user's identity to Databricks using the OAuth 2.0 On-Behalf-Of (OBO) grant, so that Databricks can enforce per-user access controls.
 
 ## Architecture Diagram
 
 ```mermaid
 sequenceDiagram
     participant User as End User (browser/app)
-    participant PP as Power Platform Connector
+    participant PP as Copilot Studio Agent
     participant AAD as Entra ID (AAD)
     participant DBX as Databricks MCP Endpoint
 
@@ -30,8 +30,7 @@ sequenceDiagram
 
 ## Variations
 
-- **Power Apps (canvas)**: User signs in to the app; their token is passed through the OBO flow.
-- **Copilot Studio**: User identity may not be available in all invocation contexts. TODO: confirm Copilot Studio OBO support.
+- **Copilot Studio**: User signs in to the agent; their token can be passed through the OBO flow, though user identity may not be available in all invocation contexts. TODO: confirm Copilot Studio OBO support.
 - **APIM-mediated OBO**: APIM performs the OBO token exchange, offloading it from the connector. TODO: confirm APIM OBO policy pattern.
 
 ## Constraints / Non-Goals

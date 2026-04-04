@@ -2,14 +2,14 @@
 
 ## Pattern Statement
 
-A Power Platform connector sends natural-language questions to a Databricks AI/BI Genie Space using the MCP Genie endpoint (`mcpgenie`), authenticated via OAuth 2.0 client credentials.
+A Copilot Studio agent sends natural-language questions to a Databricks AI/BI Genie Space using the MCP Genie endpoint (`mcpgenie`), authenticated via OAuth 2.0 client credentials.
 
 ## Architecture Diagram
 
 ```mermaid
 flowchart LR
-    subgraph PP["Power Platform"]
-        agent["Copilot Studio / Flow"]
+    subgraph PP["Copilot Studio"]
+        agent["Copilot Studio Agent"]
         conn["Connector (OOB or Custom)"]
     end
     subgraph DBX["Databricks"]
@@ -57,7 +57,7 @@ flowchart LR
 - [ ] MCP `tools/list` returns the Genie ask-question tool.
 - [ ] MCP `tools/call` with a sample question returns a meaningful natural-language answer.
 - [ ] Token is accepted (no 401/403).
-- [ ] End-to-end call from Copilot Studio agent / Power Automate flow returns expected answer.
+- [ ] End-to-end call from Copilot Studio agent returns expected answer.
 - [ ] Genie Space query history confirms the question was processed.
 
 ## Related Config Paths

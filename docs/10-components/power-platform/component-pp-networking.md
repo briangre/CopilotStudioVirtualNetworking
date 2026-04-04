@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Describes the networking options available for Power Platform services (Copilot Studio, Power Automate, Power Apps) when making outbound calls to external APIs such as Azure Databricks MCP endpoints.
+Describes the networking options available for Copilot Studio agents when making outbound calls to external APIs such as Azure Databricks MCP endpoints.
 
 ## When to Use
 
@@ -41,7 +41,7 @@ Reference this component when:
 
 ## Validation Steps
 
-1. In Power Automate or Power Apps, create a test flow/action using the connector.
+1. In Copilot Studio, create a test action using the connector.
 2. Invoke a lightweight call (e.g., list tables or health check).
 3. Confirm HTTP 200 response within expected latency.
 4. Check gateway logs (if using VNet data gateway) for any errors.

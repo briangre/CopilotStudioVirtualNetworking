@@ -2,13 +2,13 @@
 
 ## Pattern Statement
 
-A Power Platform connector authenticates to a Databricks MCP endpoint as an application (service principal) using the OAuth 2.0 client credentials grant, with no user delegation.
+A Copilot Studio agent authenticates to a Databricks MCP endpoint as an application (service principal) using the OAuth 2.0 client credentials grant, with no user delegation.
 
 ## Architecture Diagram
 
 ```mermaid
 sequenceDiagram
-    participant PP as Power Platform Connector
+    participant PP as Copilot Studio Agent
     participant AAD as Entra ID (AAD)
     participant DBX as Databricks MCP Endpoint
 

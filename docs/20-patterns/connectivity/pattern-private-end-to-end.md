@@ -2,14 +2,14 @@
 
 ## Pattern Statement
 
-Power Platform connects to a Databricks MCP endpoint entirely within an Azure VNet using a VNet data gateway and Private Endpoint, with no traffic traversing the public internet.
+A Copilot Studio agent connects to a Databricks MCP endpoint entirely within an Azure VNet using a VNet data gateway and Private Endpoint, with no traffic traversing the public internet.
 
 ## Architecture Diagram
 
 ```mermaid
 flowchart LR
-    subgraph PowerPlatform["Power Platform"]
-        agent["Copilot Studio Agent\n/ Power Automate Flow"]
+    subgraph PowerPlatform["Copilot Studio"]
+        agent["Copilot Studio Agent"]
         connector["Custom Connector"]
     end
     subgraph Azure["Azure VNet"]
