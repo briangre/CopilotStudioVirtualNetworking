@@ -28,9 +28,8 @@ Reference this component when:
 ### High-level steps
 
 1. Provision an APIM instance. Any SKU works for basic proxying; Developer, Standard, or Premium is recommended for VNet integration. Check the [Microsoft Learn guide](https://learn.microsoft.com/en-us/azure/api-management/expose-existing-mcp-server) for any preview-specific SKU requirements.
-2. Follow the [Microsoft Learn guide](https://learn.microsoft.com/en-us/azure/api-management/expose-existing-mcp-server) to import your Databricks MCP endpoint (`mcpsql` or `mcpgenie`) as an MCP-backed API.
-3. Apply an inbound policy to inject the Databricks authentication token via an APIM Named Value or Key Vault reference.
-4. Test the endpoint from the APIM test console, then wire it up to your Power Platform connector.
+2. Follow the [Microsoft Learn guide](https://learn.microsoft.com/en-us/azure/api-management/expose-existing-mcp-server) to import your Databricks MCP endpoint (`mcpsql` or `mcpgenie`) as an MCP-backed API. Authentication to Databricks is handled automatically.
+3. Test the endpoint from the APIM test console, then wire it up to your Power Platform connector.
 
 ## Related
 
