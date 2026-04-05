@@ -16,6 +16,7 @@ This matrix maps every validated configuration combination to its config path. C
 | # | Power Platform Surface | Connector Type | Network Path | APIM | Databricks Endpoint | Config Path |
 |---|------------------------|---------------|--------------|------|---------------------|-------------|
 | 03 | Copilot Studio | OOB | Private | No | mcpgenie | [config-03](../30-config-paths/config-03-pp-oob-private-dbx-genie.md) |
+| 06 | Copilot Studio | Custom | Private | No | mcpsql | [config-06](../30-config-paths/config-06-pp-custom-private-dbx-sql.md) |
 
 ## Private Network · Via APIM
 
