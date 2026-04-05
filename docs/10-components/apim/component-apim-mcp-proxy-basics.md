@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Describes how to configure Azure API Management (APIM) as a transparent proxy for Databricks MCP endpoints (`mcpsql`, `mcpgenie`), including API definition and routing.
+Describes how to configure Azure API Management (APIM) to expose Databricks MCP endpoints (`mcpsql`, `mcpgenie`) to Power Platform with a stable, APIM-managed URL.
 
 ## When to Use
 
@@ -11,40 +11,25 @@ Reference this component when:
 - You need to expose MCP endpoints to Power Platform with a stable, APIM-managed URL.
 - You require APIM-level policies (throttling, transformation, logging) on MCP traffic.
 
-## Inputs / Prerequisites
+## Recommended Approach: Use the APIM "Expose Existing MCP Server" Feature
 
-- APIM instance provisioned (any SKU for basic proxy; Developer, Standard, or Premium for VNet integration).
-- Databricks workspace URL and MCP endpoint paths known. TODO: confirm exact paths for `mcpsql` and `mcpgenie`.
-- OpenAPI spec for the Databricks MCP endpoint, or manually defined operations.
+> **Note:** Azure API Management now includes a **preview feature** that lets you expose an existing MCP server directly — without manually building each API operation. This is the recommended approach for this solution.
 
-## Outputs / What "Done" Looks Like
+📖 **Follow the official Microsoft Learn guide:**
+**[Expose an existing MCP server using Azure API Management (Preview)](https://learn.microsoft.com/en-us/azure/api-management/expose-existing-mcp-server)**
 
-- APIM API is created with operations matching the Databricks MCP endpoint.
-- Test call from APIM test console returns a valid MCP response.
-- Power Platform connector can invoke APIM URL and receive expected MCP response.
+### Why this is better than a manual API build
 
-## Configuration Steps
+- **No manual operation definition** — APIM discovers and proxies MCP tools automatically.
+- **Maintained by Microsoft** — the integration stays aligned with MCP spec changes and APIM updates.
+- **Simpler policy surface** — authentication pass-through, CORS, and throttling policies can still be applied at the APIM gateway level.
+- **Faster to set up** — point APIM at your Databricks MCP endpoint URL and the feature handles the rest.
 
-1. In the Azure portal, navigate to your APIM instance.
-2. Create a new API:
-   - Select **Add API > HTTP** (or import OpenAPI spec if available).
-   - Set **Web service URL** to the Databricks workspace endpoint: `https://<workspace>.azuredatabricks.net/`.
-   - Set **API URL suffix** to a meaningful path, e.g., `mcp`.
-3. Add operations for each MCP action (e.g., `POST /mcp/call`, `GET /mcp/tools`). TODO: confirm exact MCP endpoint operations.
-4. Configure CORS policy if Power Platform requires it. TODO: confirm CORS requirements.
-5. Test from the APIM test console.
+### High-level steps
 
-> **Note on authentication**: APIM does not need to be configured to inject or manage authentication tokens for Databricks. Authentication pass-through is handled automatically — no additional APIM policy configuration is required for this.
-
-## Validation Steps
-
-1. In the APIM test console, invoke a test operation — expect HTTP 200 and a valid MCP response body.
-2. Invoke from the Power Platform connector — expect HTTP 200.
-
-## Known Limitations
-
-- SSE (Server-Sent Events) and WebSocket streaming from Databricks MCP are not transparently proxied by APIM by default. TODO: confirm streaming support.
-- APIM adds latency (~10–50 ms typical); profile under load if latency is critical.
+1. Provision an APIM instance. Any SKU works for basic proxying; Developer, Standard, or Premium is recommended for VNet integration. Check the [Microsoft Learn guide](https://learn.microsoft.com/en-us/azure/api-management/expose-existing-mcp-server) for any preview-specific SKU requirements.
+2. Follow the [Microsoft Learn guide](https://learn.microsoft.com/en-us/azure/api-management/expose-existing-mcp-server) to import your Databricks MCP endpoint (`mcpsql` or `mcpgenie`) as an MCP-backed API. Authentication to Databricks is handled automatically.
+3. Test the endpoint from the APIM test console, then wire it up to your Power Platform connector.
 
 ## Related
 
