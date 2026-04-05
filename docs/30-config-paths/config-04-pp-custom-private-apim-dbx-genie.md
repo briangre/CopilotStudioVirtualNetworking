@@ -15,7 +15,7 @@ Confirm all prerequisites are met before starting:
 - [ ] Azure VNet provisioned in the same region as the Databricks workspace.
 - [ ] Databricks workspace with AI/BI Genie Space and associated SQL Warehouse. See [component-dbx-mcpgenie](../10-components/databricks/component-dbx-mcpgenie.md).
 - [ ] APIM instance provisioned (Developer SKU minimum). See [component-apim-private-ingress-egress](../10-components/apim/component-apim-private-ingress-egress.md).
-- [ ] Entra ID app registration for Power Platform → APIM auth and a separate one (or same) for APIM → Databricks. See [component-dbx-auth](../10-components/databricks/component-dbx-auth.md).
+- [ ] Entra ID app registration for OAuth 2.0 authentication. See [component-dbx-auth](../10-components/databricks/component-dbx-auth.md).
 - [ ] Power Platform environment with custom connectors enabled.
 
 ## Steps
@@ -39,8 +39,9 @@ Confirm all prerequisites are met before starting:
 
 1. Follow [component-apim-private-ingress-egress](../10-components/apim/component-apim-private-ingress-egress.md) § "Configuration Steps" to deploy APIM in Internal VNet mode.
 2. Follow [component-apim-mcp-proxy-basics](../10-components/apim/component-apim-mcp-proxy-basics.md) § "Configuration Steps" to create the MCP Genie API in APIM.
-3. Store the Databricks OAuth token in an APIM Named Value.
-4. Test from the APIM test console — expect HTTP 200 from the mcpgenie endpoint.
+3. Test from the APIM test console — expect HTTP 200 from the mcpgenie endpoint.
+
+> **Note on authentication**: No additional APIM policy configuration is needed to handle Databricks authentication — it is passed through automatically.
 
 ### Step 5 — Deploy VNet Data Gateway
 
@@ -83,7 +84,6 @@ Confirm all prerequisites are met before starting:
 | Symptom | Likely cause | Resolution |
 |---------|-------------|------------|
 | APIM cannot reach Databricks | DNS misconfiguration or Private Endpoint not ready | Verify DNS from APIM subnet; check Private Endpoint state |
-| 401 from APIM to Databricks | Databricks token expired or incorrect | Rotate Named Value in APIM; verify token scope |
 | VNet data gateway offline | VM or gateway service stopped | Restart gateway; check VM health |
 | Custom connector 404 | Wrong APIM URL or API suffix | Verify APIM URL and API path in connector definition |
 | Timeout | Genie Space SQL Warehouse not running | Start the warehouse; check auto-start is enabled |

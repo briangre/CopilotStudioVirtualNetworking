@@ -34,7 +34,9 @@ Reference this component when:
 4. Deploy a VNet data gateway in the same VNet (or peered VNet with routing to APIM).
 5. Configure the Power Platform custom connector to call APIM's frontend URL.
 6. Apply inbound policies: JWT validation, rate limiting, subscription key or OAuth enforcement.
-7. Apply outbound policies: append Databricks auth token, transform response if needed.
+7. Apply outbound policies as needed for response transformation.
+
+> **Note on authentication**: Authentication to Databricks is handled automatically by the OAuth flow configured in the connector — no APIM policy is required to inject or manage Databricks auth tokens.
 
 ## Validation Steps
 
@@ -48,7 +50,6 @@ Reference this component when:
 
 - APIM Internal VNet mode requires a custom DNS setup for external management plane access. TODO: confirm DNS requirements.
 - APIM deployment can take 30–45 minutes.
-- APIM does not automatically rotate Databricks credentials; secret refresh must be scripted. TODO: confirm recommended approach.
 - APIM Premium SKU required for multi-region or zone-redundant deployments.
 
 ## Related

@@ -43,6 +43,7 @@ Reference this component when:
 
 - Databricks Personal Access Token passed as a Bearer token.
 - Simple to configure but scoped to a single user; not recommended for production.
+- **Not tested** in the configurations documented here; cannot be vouched for. Use OAuth 2.0 for validated deployments.
 - TODO: confirm whether OOB connector supports PAT.
 
 ## Configuration Steps
