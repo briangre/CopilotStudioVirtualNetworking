@@ -9,7 +9,7 @@ Power Platform connects to a Databricks MCP endpoint over the public internet us
 ```mermaid
 flowchart LR
     subgraph PowerPlatform["Power Platform"]
-        agent["Copilot Studio Agent\n/ Power Automate Flow"]
+        agent["Copilot Studio Agent"]
         connector["OOB or Custom\nConnector"]
     end
     subgraph Azure["Azure (Public Endpoint)"]

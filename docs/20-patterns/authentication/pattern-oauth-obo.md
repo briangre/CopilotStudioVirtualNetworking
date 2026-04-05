@@ -30,8 +30,7 @@ sequenceDiagram
 
 ## Variations
 
-- **Power Apps (canvas)**: User signs in to the app; their token is passed through the OBO flow.
-- **Copilot Studio**: User identity may not be available in all invocation contexts. TODO: confirm Copilot Studio OBO support.
+- **Copilot Studio agents**: User identity may be available in interactive invocation contexts; their token is passed through the OBO flow. TODO: confirm Copilot Studio OBO support.
 - **APIM-mediated OBO**: APIM performs the OBO token exchange, offloading it from the connector. TODO: confirm APIM OBO policy pattern.
 
 ## Constraints / Non-Goals

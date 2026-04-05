@@ -9,16 +9,11 @@ This matrix maps every validated configuration combination to its config path.
 | 01 | Copilot Studio | OOB | Public | No | mcpgenie | [config-01](../30-config-paths/config-01-pp-oob-public-dbx-genie.md) |
 | 02 | Copilot Studio | Custom | Private | Yes | mcpsql | [config-02](../30-config-paths/config-02-pp-custom-private-apim-dbx-sql.md) |
 | 03 | Copilot Studio | OOB | Private | No | mcpgenie | [config-03](../30-config-paths/config-03-pp-oob-private-dbx-genie.md) |
-| 04 | Power Automate | OOB | Public | No | mcpgenie | 🔲 TODO: confirm |
-| 05 | Power Automate | Custom | Private | Yes | mcpsql | 🔲 TODO: confirm |
-| 06 | Power Apps | Custom | Private | Yes | mcpsql | 🔲 TODO: confirm |
 
 ## Dimension Definitions
 
 ### Power Platform Surface
 - **Copilot Studio** – Conversational agent with MCP tool calling.
-- **Power Automate** – Automated flow invoking Databricks via connector.
-- **Power Apps** – Canvas or model-driven app making direct connector calls.
 
 ### Connector Type
 - **OOB (Out-of-Box)** – Pre-built connector available in the Power Platform connector gallery. No custom code required. See [component-oob-connector-behavior](../10-components/connectors/component-oob-connector-behavior.md).

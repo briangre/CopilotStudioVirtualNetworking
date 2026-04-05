@@ -67,7 +67,7 @@ data traversing the public internet?
 
 **Use when:**
 - Private connectivity is required **and** you need centralized rate limiting, policy enforcement, or protocol translation.
-- Multiple Power Platform agents/flows share a single gateway.
+- Multiple Copilot Studio agents share a single gateway.
 
 **Trade-offs:**
 - APIM adds cost and operational overhead.
