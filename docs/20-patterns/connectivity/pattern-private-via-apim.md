@@ -2,13 +2,13 @@
 
 ## Pattern Statement
 
-Power Platform connects to a Databricks MCP endpoint through an Azure API Management (APIM) instance deployed inside an Azure VNet, providing centralized policy enforcement, authentication mediation, and private network isolation.
+A Copilot Studio agent connects to a Databricks MCP endpoint through an Azure API Management (APIM) instance deployed inside an Azure VNet, providing centralized policy enforcement, authentication mediation, and private network isolation.
 
 ## Architecture Diagram
 
 ```mermaid
 flowchart LR
-    subgraph PowerPlatform["Power Platform"]
+    subgraph PowerPlatform["Copilot Studio"]
         agent["Copilot Studio Agent"]
         connector["Custom Connector"]
     end

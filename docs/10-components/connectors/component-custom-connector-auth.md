@@ -42,7 +42,7 @@ Reference this component when:
 
 1. In the connector test UI, invoke a lightweight action (e.g., list tools).
 2. Verify HTTP 200 and a valid response body.
-3. Add the connector to a simple Copilot Studio agent action and run it end-to-end.
+3. Add the connector to a Copilot Studio agent and run it end-to-end.
 4. Confirm the token is being sent with the `Authorization: Bearer` header. TODO: confirm header inspection method.
 
 ## Known Limitations

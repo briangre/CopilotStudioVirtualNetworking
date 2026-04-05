@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Describes the networking options available for Power Platform services (Copilot Studio agents) when making outbound calls to external APIs such as Azure Databricks MCP endpoints.
+Describes the networking options available for Copilot Studio agents when making outbound calls to external APIs such as Azure Databricks MCP endpoints.
 
 ## When to Use
 

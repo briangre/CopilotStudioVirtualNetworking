@@ -19,7 +19,7 @@ Rather than writing one end-to-end guide per configuration, this set uses a **co
 
 Each configuration is defined by choices along four dimensions:
 
-1. **Power Platform surface** – Copilot Studio agents
+1. **Copilot Studio agent** – the Power Platform surface used to connect to Databricks
 2. **Connector type** – Out-of-box (OOB) vs. Custom connector
 3. **Network path** – Public (internet-routable) vs. Private (VNet/Private Endpoint)
 4. **Databricks endpoint** – `mcpsql` (SQL warehouse) vs. `mcpgenie` (AI/BI Genie)
