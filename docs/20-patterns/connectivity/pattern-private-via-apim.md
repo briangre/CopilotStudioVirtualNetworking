@@ -20,9 +20,9 @@ flowchart LR
         mcp["MCP Endpoint"]
     end
     agent --> connector
-    connector -- "HTTPS + Subscription Key/OAuth\n(private via gateway)" --> gateway
+    connector -- "HTTPS + OAuth\n(private via gateway)" --> gateway
     gateway --> apim
-    apim -- "HTTPS + Databricks OAuth Token\n(injected by APIM policy)" --> pe
+    apim -- "HTTPS + Auth (passed through automatically)" --> pe
     pe --> dbx
     dbx --> mcp
 ```
@@ -41,14 +41,13 @@ flowchart LR
 
 ## Variations
 
-- **Auth mediation**: APIM can validate an incoming JWT from Power Platform and exchange it for a Databricks token (token exchange pattern). TODO: confirm token exchange steps.
+- **Auth mediation**: Authentication to Databricks is handled automatically through the OAuth flow — no additional APIM policy configuration is required to inject or manage Databricks tokens.
 - **Multiple backends**: APIM can route to both `mcpsql` and `mcpgenie` based on the request path or header, allowing a single connector to reach both endpoints.
 - **Policy-only APIM**: APIM External mode can be used if Power Platform cannot route to an APIM Internal endpoint; reduces privacy guarantees.
 
 ## Constraints / Non-Goals
 
 - APIM adds cost (Developer SKU minimum for VNet integration; Standard/Premium for production).
-- APIM does not automatically refresh Databricks tokens; token rotation must be scripted.
 - This pattern does not cover APIM self-hosted gateway scenarios.
 
 ## Validation Checklist
