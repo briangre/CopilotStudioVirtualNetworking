@@ -29,6 +29,8 @@ This documentation uses a **components → patterns → config-paths** model to 
 | 01 | OOB | Public | No | mcpgenie | [config-01](./docs/30-config-paths/config-01-pp-oob-public-dbx-genie.md) |
 | 02 | Custom | Private | Yes | mcpsql | [config-02](./docs/30-config-paths/config-02-pp-custom-private-apim-dbx-sql.md) |
 | 03 | OOB | Private | No | mcpgenie | [config-03](./docs/30-config-paths/config-03-pp-oob-private-dbx-genie.md) |
+| 04 | Custom | Private | Yes | mcpgenie | [config-04](./docs/30-config-paths/config-04-pp-custom-private-apim-dbx-genie.md) |
+| 05 | Custom | Public | No | mcpsql | [config-05](./docs/30-config-paths/config-05-pp-custom-public-dbx-sql.md) |
 
 ## Notation
 

@@ -1,14 +1,28 @@
 # Configuration Matrix
 
-This matrix maps every validated configuration combination to its config path.
+This matrix maps every validated configuration combination to its config path. Configurations are grouped by network path, then by whether APIM is used.
 
 > Legend: ✅ Supported · ⚠️ Limited/partial · ❌ Not supported · 🔲 TODO: confirm
+
+## Public Network (no private networking required)
 
 | # | Power Platform Surface | Connector Type | Network Path | APIM | Databricks Endpoint | Config Path |
 |---|------------------------|---------------|--------------|------|---------------------|-------------|
 | 01 | Copilot Studio | OOB | Public | No | mcpgenie | [config-01](../30-config-paths/config-01-pp-oob-public-dbx-genie.md) |
-| 02 | Copilot Studio | Custom | Private | Yes | mcpsql | [config-02](../30-config-paths/config-02-pp-custom-private-apim-dbx-sql.md) |
+| 05 | Copilot Studio | Custom | Public | No | mcpsql | [config-05](../30-config-paths/config-05-pp-custom-public-dbx-sql.md) |
+
+## Private Network · Direct (no APIM)
+
+| # | Power Platform Surface | Connector Type | Network Path | APIM | Databricks Endpoint | Config Path |
+|---|------------------------|---------------|--------------|------|---------------------|-------------|
 | 03 | Copilot Studio | OOB | Private | No | mcpgenie | [config-03](../30-config-paths/config-03-pp-oob-private-dbx-genie.md) |
+
+## Private Network · Via APIM
+
+| # | Power Platform Surface | Connector Type | Network Path | APIM | Databricks Endpoint | Config Path |
+|---|------------------------|---------------|--------------|------|---------------------|-------------|
+| 02 | Copilot Studio | Custom | Private | Yes | mcpsql | [config-02](../30-config-paths/config-02-pp-custom-private-apim-dbx-sql.md) |
+| 04 | Copilot Studio | Custom | Private | Yes | mcpgenie | [config-04](../30-config-paths/config-04-pp-custom-private-apim-dbx-genie.md) |
 
 ## Dimension Definitions
 
