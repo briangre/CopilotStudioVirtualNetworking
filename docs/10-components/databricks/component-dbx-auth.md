@@ -26,7 +26,9 @@ Reference this component when:
 
 ## Authentication Options
 
-### Option 1: OAuth 2.0 – Client Credentials (Recommended for Production)
+> **Tested authentication method**: Only OAuth 2.0 (service principal / client credentials) has been tested and validated in this documentation. The PAT option below may work but has **not** been tested and cannot be vouched for in these configurations.
+
+### Option 1: OAuth 2.0 – Client Credentials (Recommended; Tested)
 
 1. Register a service principal in Entra ID.
 2. In the Databricks workspace, add the service principal:
@@ -36,7 +38,9 @@ Reference this component when:
 4. Token scope: TODO: confirm Databricks OAuth scope (likely `2ff814a6-3304-4ab8-85cb-cd0e6f879c1d/.default` for Azure Databricks).
 5. Use the obtained token as `Authorization: Bearer <token>` in API calls.
 
-### Option 2: Databricks Personal Access Token (PAT) — Development Only
+### Option 2: Databricks Personal Access Token (PAT) — Not Tested; Development Reference Only
+
+> **Note**: PAT authentication has **not** been tested with the configurations in this documentation. It may work, but it cannot be vouched for here. Use OAuth 2.0 for any validated deployment.
 
 1. In the Databricks workspace, navigate to **Settings > Developer > Access tokens > Generate new token**.
 2. Set an expiry and note the token value (shown only once).

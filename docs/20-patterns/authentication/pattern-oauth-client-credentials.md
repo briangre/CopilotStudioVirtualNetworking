@@ -29,7 +29,7 @@ sequenceDiagram
 ## Variations
 
 - **Secret vs. certificate**: Client secret is simpler; certificate (client assertion) is more secure. TODO: confirm certificate support in Power Platform custom connectors.
-- **APIM token injection**: In the [pattern-private-via-apim](../connectivity/pattern-private-via-apim.md) topology, APIM acquires the Databricks token on behalf of Power Platform, and Power Platform authenticates to APIM separately.
+- **APIM topology**: In the [pattern-private-via-apim](../connectivity/pattern-private-via-apim.md) topology, authentication pass-through is handled automatically — no APIM policy configuration is required to inject or manage Databricks tokens.
 
 ## Constraints / Non-Goals
 
