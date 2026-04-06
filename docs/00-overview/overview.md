@@ -24,7 +24,8 @@ Each configuration is defined by choices along four dimensions:
 3. **Network path** – Public (internet-routable) vs. Private (VNet/Private Endpoint)
 4. **Databricks endpoint** – `mcpsql` (SQL warehouse) vs. `mcpgenie` (AI/BI Genie)
 
-APIM is an optional proxy layer applicable to the private network path.
+APIM is an optional proxy layer applicable to provide additional logging and filtering over either the 
+private or public network paths.
 
 ## Quick Start
 
