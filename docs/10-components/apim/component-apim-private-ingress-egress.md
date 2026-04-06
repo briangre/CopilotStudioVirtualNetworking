@@ -14,10 +14,10 @@ Reference this component when:
 ## Inputs / Prerequisites
 
 - Azure VNet with at least two subnets: one for APIM, one for the Databricks Private Endpoint.
-- APIM instance deployed in **Internal** or **External** VNet integration mode. TODO: confirm recommended mode.
+- APIM instance deployed in **Internal** VNet integration mode (recommended for fully private topology).
 - Private Endpoint for the Databricks workspace reachable from the APIM subnet.
 - DNS resolution configured so APIM can resolve the Databricks private endpoint hostname.
-- VNet data gateway (or OPDG) for Power Platform egress, with line-of-sight to APIM's internal IP.
+- [Power Platform Virtual Networking](https://learn.microsoft.com/en-us/power-platform/admin/virtual-network-support-overview) configured for Power Platform egress to reach APIM's internal IP.
 
 ## Outputs / What "Done" Looks Like
 
@@ -28,27 +28,23 @@ Reference this component when:
 
 ## Configuration Steps
 
-1. Deploy APIM in VNet-integrated mode (Internal recommended for fully private).
-2. Configure APIM's backend to point to the Databricks private endpoint URL.
-3. Create an APIM API (see [component-apim-mcp-proxy-basics](component-apim-mcp-proxy-basics.md)) for the MCP endpoint.
-4. Deploy a VNet data gateway in the same VNet (or peered VNet with routing to APIM).
-5. Configure the Power Platform custom connector to call APIM's frontend URL.
-6. Apply inbound policies: JWT validation, rate limiting, subscription key or OAuth enforcement.
-7. Apply outbound policies as needed for response transformation.
+1. [Deploy APIM in VNet-integrated mode](https://learn.microsoft.com/en-us/azure/api-management/api-management-using-with-internal-vnet) (Internal mode is recommended for a fully private topology).
+2. [Configure APIM's backend in its own virtual network](https://learn.microsoft.com/en-us/azure/api-management/private-endpoint) so that the Databricks hostname resolves to its private IP address via the Databricks Private Endpoint.
+3. Create an API using **Expose existing MCP** to front the Databricks MCP endpoint.
+4. With successful [Power Platform Virtual Networking configuration](../../10-components/power-platform/component-pp-networking.md), configure the Copilot Studio Agent MCP as a tool (see [component-apim-mcp-proxy-basics](component-apim-mcp-proxy-basics.md), which creates the custom connector).
+5. Test end-to-end communication before applying policies.
+6. Apply desired inbound policies (e.g., JWT validation, rate limiting, subscription key or OAuth enforcement) and outbound policies as needed for response transformation.
 
 > **Note on authentication**: Authentication to Databricks is handled automatically by the OAuth flow configured in the connector — no APIM policy is required to inject or manage Databricks auth tokens.
 
 ## Validation Steps
 
-1. From a VM in the VNet, `curl` the APIM frontend URL — expect HTTP 200 or 401.
-2. From the VNet data gateway host, confirm APIM frontend URL is reachable.
-3. Execute a test call through the Power Platform connector — expect HTTP 200.
-4. Check APIM diagnostic logs to confirm the request was proxied to Databricks.
-5. Disable Databricks public network access and re-test to confirm end-to-end private path.
+1. From a VM in the APIM Inbound VNet, `curl` the APIM frontend URL — expect HTTP 200 or 401.
+2. Execute a test call through the Power Platform connector — expect HTTP 200.
+3. Check APIM diagnostic logs to confirm the request was proxied to Databricks.
 
 ## Known Limitations
 
-- APIM Internal VNet mode requires a custom DNS setup for external management plane access. TODO: confirm DNS requirements.
 - APIM deployment can take 30–45 minutes.
 - APIM Premium SKU required for multi-region or zone-redundant deployments.
 
