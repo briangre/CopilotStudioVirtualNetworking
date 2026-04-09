@@ -29,7 +29,9 @@ Reference this component when:
 
 1. Provision an APIM instance. Any SKU works for basic proxying; Developer, Standard, or Premium is recommended for VNet integration. Check the [APIM SKU feature comparison](https://learn.microsoft.com/en-us/azure/api-management/api-management-features) for any preview-specific SKU requirements.
 2. Follow the [Microsoft Learn guide](https://learn.microsoft.com/en-us/azure/api-management/expose-existing-mcp-server) to import your Databricks MCP endpoint (`mcpsql` or `mcpgenie`) as an MCP-backed API. Authentication to Databricks is handled automatically.
-3. Test the endpoint from the APIM test console, then wire it up to your Power Platform connector. **Note:** The APIM test console does not use private networking; if your APIM instance is deployed with VNet integration or private endpoints, testing from the built-in test panel will not work. Use a client inside the private network (e.g., a jump box or self-hosted agent) to validate the endpoint instead.
+3. Wire up the API to your Power Platform custom connector. **Note:** Because the "Expose existing MCP server" feature is currently in preview, there is no built-in APIM test pane for this API type. Valid options for testing are:
+   - Deploy a VM inside the inbound APIM VNet and test the endpoint directly from that VM.
+   - Test end-to-end by invoking the custom connector from Power Platform.
 
 ## Related
 
