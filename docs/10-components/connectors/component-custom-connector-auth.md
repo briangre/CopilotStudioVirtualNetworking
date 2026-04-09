@@ -9,14 +9,13 @@ Describes how to build and configure a custom Power Platform connector with an a
 Reference this component when:
 - The OOB connector does not support your required auth model or endpoint.
 - You need to route traffic through APIM or a private endpoint.
-- You need to customize request headers, URL paths, or payload transformation.
+- You need to customize request headers, URL paths, or payload transformation using APIM.
 
 ## Inputs / Prerequisites
 
-- OpenAPI 2.0 (Swagger) or OpenAPI 3.0 spec for the Databricks MCP endpoint. TODO: confirm which spec version is supported.
+- OpenAPI 2.0 (Swagger) or OpenAPI 3.0 spec for the Databricks MCP endpoint
+-    for these docs the built-in MCP Tool in Copilot Studio will be used
 - Entra ID app registration with appropriate permissions.
-- Power Platform environment with the "Custom connectors" feature enabled.
-- Connector publisher has "Environment Maker" or "System Customizer" role.
 
 ## Outputs / What "Done" Looks Like
 
