@@ -2,54 +2,78 @@
 
 ## Purpose
 
-Describes how to build and configure a custom Power Platform connector with an authentication scheme suitable for calling Databricks MCP endpoints, including scenarios where the OOB connector is insufficient.
+Describes how to add a Databricks MCP endpoint as a tool in Copilot Studio using the built-in **Model Context Protocol (MCP)** tool type. When you add an MCP tool, Copilot Studio automatically creates and manages a custom Power Platform connector under the covers — no manual OpenAPI import or connector authoring is required.
 
 ## When to Use
 
 Reference this component when:
+- You want to connect a Copilot Studio agent to a Databricks MCP endpoint (`mcpgenie` or `mcpsql`).
+- You prefer Copilot Studio to manage the custom connector lifecycle automatically.
 - The OOB connector does not support your required auth model or endpoint.
-- You need to route traffic through APIM or a private endpoint.
-- You need to customize request headers, URL paths, or payload transformation using APIM.
 
 ## Inputs / Prerequisites
 
-- OpenAPI 2.0 (Swagger) or OpenAPI 3.0 spec for the Databricks MCP endpoint
--    for these docs the built-in MCP Tool in Copilot Studio will be used
-- Entra ID app registration with appropriate permissions.
+- Copilot Studio agent (existing or new) in a Power Platform environment.
+- Databricks MCP endpoint URL (e.g., `https://<workspace-url>/api/2.0/mcp/...`).
+- Entra ID app registration with appropriate permissions and a client secret (for OAuth 2.0 client credentials flow).
+- Tenant ID, Client ID, Client Secret, and OAuth token URL for the app registration.
 
 ## Outputs / What "Done" Looks Like
 
-- Custom connector is created and shared within the Power Platform environment.
-- A connection to the custom connector authenticates successfully.
-- Connector actions can be invoked from Copilot Studio agents.
+- An MCP tool is added to the Copilot Studio agent.
+- Copilot Studio has automatically created a custom connector and connection in the Power Platform environment.
+- The agent can invoke Databricks MCP actions (e.g., run SQL, call Genie) via the MCP tool.
 
 ## Configuration Steps
 
-1. Obtain or author the OpenAPI spec for the target Databricks MCP endpoint.
-2. In the Power Platform maker portal, navigate to **Data > Custom connectors > + New custom connector > Import an OpenAPI file**.
-3. Upload the spec.
-4. On the **Security** tab, configure OAuth 2.0:
-   - Grant type: `client_credentials` (for application identity) or `authorization_code` (for delegated/OBO).
-   - Token URL: `https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token`
-   - Client ID and secret from the Entra ID app registration.
-   - Scope: TODO: confirm Databricks OAuth scope.
-5. On the **Definition** tab, verify actions and parameters match the Databricks API.
-6. Click **Create connector**.
-7. Create a connection: click **Test > + New connection**, provide credentials, and test an action.
+### Step 1 — Open Your Agent in Copilot Studio
+
+1. Navigate to [Copilot Studio](https://copilotstudio.microsoft.com) and open (or create) your agent.
+
+### Step 2 — Add an MCP Tool
+
+1. In the left navigation pane, select **Tools**.
+2. Click **+ Add a tool**.
+3. In the tool type picker, select **Model Context Protocol (MCP)**.
+
+### Step 3 — Configure the MCP Server Connection
+
+1. In the **Server URL** field, enter the Databricks MCP endpoint URL.
+   - Example: `https://adb-1234567890123456.7.azuredatabricks.net/api/2.0/mcp/sql` for the mcpsql endpoint.
+   - Replace the host with your actual Databricks workspace URL, visible in the browser when logged in to your workspace.
+2. Give the tool a descriptive **Name** and optional **Description** that explains its purpose to the agent.
+
+### Step 4 — Configure Authentication
+
+1. Under **Authentication**, select **OAuth 2.0**.
+2. Fill in the following fields:
+   - **Token URL**: `https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token`
+   - **Client ID**: Client ID from the Entra ID app registration.
+   - **Client Secret**: Client secret from the Entra ID app registration.
+   - **Scope**: The Databricks OAuth scope. For Azure-hosted Databricks, use `2ff814a6-3304-4ab8-85cb-cd0e6f879c1d/.default` (this UUID is the well-known first-party Databricks application ID in Entra ID). Consult your Databricks admin if your deployment uses a different scope.
+3. Click **Save** or **Next** to proceed.
+
+### Step 5 — Complete and Publish
+
+1. Review the tool summary — Copilot Studio will display the actions discovered from the MCP server.
+2. Click **Add tool** (or **Finish**) to save the configuration.
+3. Copilot Studio automatically creates a custom connector and connection in the background.
+4. **Publish** the agent to make the MCP tool available.
 
 ## Validation Steps
 
-1. In the connector test UI, invoke a lightweight action (e.g., list tools).
-2. Verify HTTP 200 and a valid response body.
-3. Add the connector to a Copilot Studio agent and run it end-to-end.
-4. Confirm the token is being sent with the `Authorization: Bearer` header. TODO: confirm header inspection method.
+1. In Copilot Studio, open the **Test** pane and send a query that should invoke the MCP tool.
+2. Verify the agent calls the MCP tool and returns a valid response from Databricks.
+3. In the Power Platform maker portal, navigate to **Data > Custom connectors** to confirm the auto-generated connector is present.
+4. Confirm the connection shows **Connected** status under **Data > Connections**.
 
 ## Known Limitations
 
+- The auto-generated custom connector is managed by Copilot Studio; manual edits to it may be overwritten.
 - Custom connectors are environment-scoped; they must be re-created or imported into each environment.
 - Secrets (client secret) are stored in the connector connection and are not rotated automatically.
 - Custom connector definitions can be exported/imported as solution components for ALM.
-- Maximum response payload size is limited by Power Platform connector limits. TODO: confirm size limit.
+- Maximum response payload size is limited by Power Platform connector limits.
 
 ## Related
 
