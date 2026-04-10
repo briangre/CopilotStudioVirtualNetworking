@@ -9,7 +9,7 @@ Describes the authentication models supported by Power Platform connectors when 
 Reference this component when:
 - Choosing an authentication scheme for a new connector connection.
 - Troubleshooting 401/403 errors from Power Platform to Databricks.
-- Understanding how delegated vs. application identity flows work.
+- Understanding the trade-offs between application identity (OAuth) and API key authentication.
 
 ## Inputs / Prerequisites
 
@@ -25,26 +25,27 @@ Reference this component when:
 
 ## Supported Auth Models
 
-### OAuth 2.0 – Client Credentials (Application Identity)
+Three authentication options are available when connecting to Databricks. **OAuth via an Entra ID app registration is the recommended approach.** See [component-dbx-auth](../databricks/component-dbx-auth.md) for a full comparison.
 
-- The connector authenticates as an application (service principal), not as a user.
-- Suitable for background flows and Copilot Studio actions that do not have an interactive user.
-- Token scope: `TODO: confirm Databricks OAuth scope`.
+### OAuth via Entra ID App Registration ✅ Recommended
+
+- The connector authenticates as a service principal (application identity) using the OAuth 2.0 client credentials grant against Entra ID.
+- Suitable for background flows and Copilot Studio actions that do not require an interactive user.
+- Tokens are short-lived and automatically refreshed; supports Entra ID conditional access and audit logging.
 - See [pattern-oauth-client-credentials](../../20-patterns/authentication/pattern-oauth-client-credentials.md).
 
-### OAuth 2.0 – On-Behalf-Of (OBO) / Delegated
+### OAuth via Databricks App Connection
 
-- The connector passes the signed-in user's identity through to Databricks.
-- Requires the calling user to have been granted access in the Databricks workspace.
-- Suitable for Copilot Studio agents where the end-user identity matters for data access control.
-- See [pattern-oauth-obo](../../20-patterns/authentication/pattern-oauth-obo.md).
+- Databricks-native OAuth application connection, issued by the Databricks workspace rather than Entra ID.
+- May be appropriate when the workspace is not integrated with Entra ID.
+- Does not benefit from Entra ID conditional access or centralized identity governance.
+- **Not tested** in the configurations documented here.
 
 ### API Key / PAT (Personal Access Token)
 
 - Databricks Personal Access Token passed as a Bearer token.
 - Simple to configure but scoped to a single user; not recommended for production.
 - **Not tested** in the configurations documented here; cannot be vouched for. Use OAuth 2.0 for validated deployments.
-- TODO: confirm whether OOB connector supports PAT.
 
 ## Configuration Steps
 
@@ -65,7 +66,6 @@ Reference this component when:
 
 - OOB connectors may not support all OAuth grant types; check the connector documentation.
 - Client secret rotation must be coordinated between Entra ID and the Power Platform connection.
-- OBO flow requires the user to have previously consented to the app registration.
 
 ## Related
 
