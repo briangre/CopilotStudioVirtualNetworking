@@ -15,8 +15,8 @@ Reference this component when:
 - Databricks workspace with AI/BI Genie enabled and a Genie Space configured.
 - Genie Space ID noted.
 - SQL Warehouse associated with the Genie Space is running.
-- Service principal (or PAT) with access to the Genie Space.
-- MCP server feature enabled for the Genie Space. TODO: confirm how to enable MCP server for Genie.
+- oAuth access to the Genie Space.
+- MCP server feature enabled for the Genie Space.
 - Workspace URL: `https://<workspace-id>.azuredatabricks.net`.
 
 ## Outputs / What "Done" Looks Like
@@ -27,20 +27,35 @@ Reference this component when:
 
 ## Endpoint Details
 
+The values needed differ depending on the connector type used.
+
+### MCP Tool (mcpgenie)
+
 | Property | Value |
 |----------|-------|
-| Endpoint path | TODO: confirm exact MCP Genie path |
+| Endpoint URL | `https://<workspace-host>/api/2.0/mcp/genie/<genie-space-id>` |
 | Protocol | HTTP/HTTPS + Server-Sent Events (SSE) or HTTP streaming |
-| Auth | OAuth 2.0 Bearer token or Databricks PAT |
-| Genie Space | Must exist and be accessible to the service principal |
+| Auth | OAuth 2.0 Bearer token |
+| Genie Space | Must exist and be accessible to the OAuth principal |
+
+To find the Genie endpoint URL, navigate to **Agents > MCP Servers** in your Databricks workspace. The full endpoint URL (including the Genie Space ID) is listed there and can be copied directly. See [Use Databricks managed MCP servers](https://learn.microsoft.com/en-us/azure/databricks/generative-ai/mcp/managed-mcp) for details.
+
+### OOB Connector / Genie Action
+
+| Property | Where to Find |
+|----------|---------------|
+| Databricks workspace host | The hostname of your workspace URL, e.g. `adb-<id>.<region>.azuredatabricks.net` |
+| SQL Warehouse HTTP path | In your workspace: **SQL > SQL Warehouses** > select the warehouse > **Connection Details** tab (e.g. `/sql/1.0/warehouses/<id>`) |
+
+See [Get connection details for a Databricks compute resource](https://learn.microsoft.com/en-us/azure/databricks/integrations/compute-details) for step-by-step instructions.
 
 ## Configuration Steps
 
 1. In the Databricks workspace, navigate to **AI/BI > Genie** and create or identify a Genie Space.
 2. Note the **Genie Space ID**.
-3. Enable the MCP server for the Genie Space. TODO: confirm steps (UI or API).
-4. Note the resulting MCP endpoint URL. TODO: confirm URL format, expected to include the Space ID.
-5. Grant the service principal access to the Genie Space.
+3. Enable the MCP server for the Genie Space. In your workspace, navigate to **Agents > MCP Servers** to verify the MCP endpoint is listed.
+4. Note the MCP endpoint URL from **Agents > MCP Servers** — it will be in the format `https://<workspace-host>/api/2.0/mcp/genie/<genie-space-id>`.
+5. Grant the OAuth service principal access to the Genie Space.
 6. Configure the Power Platform connector with the MCP endpoint URL and auth. See [component-dbx-auth](component-dbx-auth.md).
 
 ## Validation Steps
@@ -59,7 +74,6 @@ Reference this component when:
 - AI/BI Genie requires a Databricks workspace with Unity Catalog enabled. TODO: confirm.
 - Response quality depends on the data assets and instructions configured in the Genie Space.
 - Genie is not a SQL pass-through; complex or unsupported queries may return an error or a partial answer.
-- PAT tokens are user-scoped and not recommended for production automation.
 
 ## Related
 
