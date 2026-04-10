@@ -16,7 +16,7 @@ Reference this component when:
 - Copilot Studio agent (existing or new) in a Power Platform environment.
 - Databricks MCP endpoint URL (e.g., `https://<workspace-url>/api/2.0/mcp/...`).
 - Entra ID app registration with appropriate permissions and a client secret (for OAuth 2.0 client credentials flow).
-- Tenant ID, Client ID, Client Secret, and OAuth token URL for the app registration.
+- Tenant ID, Client ID, Client Secret, and OAuth token and refresh URLs for the app registration.
 
 ## Outputs / What "Done" Looks Like
 
