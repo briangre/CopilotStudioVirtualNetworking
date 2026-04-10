@@ -2,18 +2,17 @@
 
 ## Purpose
 
-Describes the behavior, capabilities, and constraints of the pre-built (OOB) Power Platform connector for Databricks or MCP endpoints, as it exists in the connector gallery without customization.
+Describes the behavior, capabilities, and constraints of the pre-built (OOB) Power Platform connector for Azure Databricks (https://learn.microsoft.com/en-us/connectors/databricks/) and its MCP endpoints, as it exists in the connector gallery without customization.
 
 ## When to Use
 
 Reference this component when:
 - Evaluating whether an OOB connector is sufficient for your scenario.
 - Understanding what the OOB connector sends and receives.
-- Diagnosing unexpected behavior from the OOB connector.
 
 ## Inputs / Prerequisites
 
-- Power Platform environment with internet access (for public path) or a configured VNet data gateway (for private path).
+- Power Platform environment with internet access (for public path) or configured VNets (for private path).
 - Valid Databricks workspace URL.
 - Authentication configured as described in [component-pp-auth-models](../power-platform/component-pp-auth-models.md).
 - Connector enabled by the Power Platform admin in the tenant's Data Loss Prevention (DLP) policy.
@@ -21,7 +20,7 @@ Reference this component when:
 ## Outputs / What "Done" Looks Like
 
 - Connector action returns a structured response (JSON) from the Databricks MCP endpoint.
-- No errors in the Power Platform connector test.
+- No errors in the Copilot Studio Agent test.
 - DLP policy does not block the connection.
 
 ## Connector Capabilities
