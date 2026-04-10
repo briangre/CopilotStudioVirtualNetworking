@@ -2,73 +2,61 @@
 
 ## Purpose
 
-Describes the authentication options for calling Databricks MCP endpoints, including OAuth 2.0 (service principal) and Personal Access Tokens (PAT), and how to configure each.
+Provides a high-level overview of the authentication options available when connecting a Copilot Studio agent to an Azure Databricks workspace — either via an MCP tool or the out-of-the-box (OOB) Azure Databricks connector — targeting the Genie or SQL MCP endpoints.
+
+This document covers the known options and identifies the recommended approach. It does not replicate Databricks or Entra ID documentation; refer to the official product docs for step-by-step configuration details.
 
 ## When to Use
 
 Reference this component when:
-- Choosing the auth method for a connector connection to Databricks.
-- Configuring a service principal for application-identity access to Databricks.
-- Rotating or managing credentials for Databricks access.
-
-## Inputs / Prerequisites
-
-- Databricks workspace with Unity Catalog or legacy workspace access configured.
-- Entra ID tenant (for OAuth 2.0 service principal flow).
-- App registration created in Entra ID. See [component-pp-auth-models](../power-platform/component-pp-auth-models.md).
-- Service principal added to the Databricks workspace with appropriate permissions.
-
-## Outputs / What "Done" Looks Like
-
-- A valid OAuth 2.0 Bearer token (or PAT) can be used to call the Databricks MCP endpoint.
-- Token (or PAT) is accepted by the Databricks API (HTTP 200 on an authenticated endpoint).
-- For OAuth: token refresh works without manual intervention.
+- Choosing an authentication scheme for a connector or MCP tool connection to Databricks.
+- Evaluating the trade-offs between OAuth and API key authentication.
 
 ## Authentication Options
 
-> **Tested authentication method**: Only OAuth 2.0 (service principal / client credentials) has been tested and validated in this documentation. The PAT option below may work but has **not** been tested and cannot be vouched for in these configurations.
+Three authentication options are available for this scenario. **OAuth using an Entra ID app registration is the recommended approach.**
 
-### Option 1: OAuth 2.0 – Client Credentials (Recommended; Tested)
+### Option 1: OAuth via Entra ID App Registration ✅ Recommended
 
-1. Register a service principal in Entra ID.
-2. In the Databricks workspace, add the service principal:
-   - Navigate to **Settings > Identity and access > Service principals > Add service principal**.
-   - Grant the service principal appropriate roles (e.g., "Can use" on SQL Warehouse, data access on catalogs).
-3. Configure the token endpoint: `https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token`
-4. Token scope: TODO: confirm Databricks OAuth scope (likely `2ff814a6-3304-4ab8-85cb-cd0e6f879c1d/.default` for Azure Databricks).
-5. Use the obtained token as `Authorization: Bearer <token>` in API calls.
+An app registration (service principal) in Entra ID is granted access to the Databricks workspace. The connector or MCP tool uses the OAuth 2.0 client credentials grant to obtain a token from Entra ID and presents it as a Bearer token to the Databricks endpoint.
 
-### Option 2: Databricks Personal Access Token (PAT) — Not Tested; Development Reference Only
+- **Identity**: Application identity (service principal); no end-user delegation.
+- **Token issuer**: Entra ID (`login.microsoftonline.com`).
+- **Why recommended**: Tokens are short-lived, support automatic refresh, and follow enterprise identity governance with Entra ID. Auditing and conditional access policies can be applied centrally.
+- **Tested**: Yes — this option has been validated in the configurations documented here.
 
-> **Note**: PAT authentication has **not** been tested with the configurations in this documentation. It may work, but it cannot be vouched for here. Use OAuth 2.0 for any validated deployment.
+See [pattern-oauth-client-credentials](../../20-patterns/authentication/pattern-oauth-client-credentials.md) for the full authentication flow.
 
-1. In the Databricks workspace, navigate to **Settings > Developer > Access tokens > Generate new token**.
-2. Set an expiry and note the token value (shown only once).
-3. Use the PAT as `Authorization: Bearer <pat>` in API calls.
-4. **Not recommended for production**; PATs are user-scoped and long-lived.
+### Option 2: OAuth via Databricks App Connection
 
-## Validation Steps
+Databricks supports its own OAuth application connections, which can be used instead of Entra ID as the identity provider. This may be appropriate when the Databricks workspace is not integrated with Entra ID or when workspace-native identity management is preferred.
 
-1. Using curl, request a token from the Entra ID token endpoint (for OAuth option):
-   ```bash
-   curl -X POST https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token \
-     -d "grant_type=client_credentials&client_id={client-id}&client_secret={secret}&scope=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d/.default"
-   ```
-   Expect a JSON response with `access_token`.
-2. Use the token to call a Databricks API:
-   ```bash
-   curl -H "Authorization: Bearer <token>" \
-     https://<workspace>.azuredatabricks.net/api/2.0/clusters/list
-   ```
-   Expect HTTP 200 or 403 (not 401 — 401 indicates the token is invalid).
-3. Confirm the service principal appears in the Databricks audit log for the API call.
+- **Identity**: Databricks-managed application identity.
+- **Token issuer**: Databricks workspace (not Entra ID).
+- **Trade-off**: Databricks-native OAuth does not benefit from Entra ID conditional access or centralized identity governance.
+- **Tested**: Not validated in the configurations documented here.
+
+### Option 3: API Key (Personal Access Token)
+
+A Databricks Personal Access Token (PAT) is passed as a Bearer token directly. This is the simplest option to configure but carries significant limitations.
+
+- **Identity**: Scoped to the individual Databricks user who generated the token.
+- **Not recommended for production**: PATs are long-lived (if no expiry is set), user-scoped, and not tied to enterprise identity controls.
+- **Tested**: Not validated in the configurations documented here.
+
+## Summary Comparison
+
+| Option | Identity type | Token issuer | Recommended? | Tested? |
+|--------|---------------|--------------|--------------|---------|
+| OAuth via Entra ID | Service principal | Entra ID | ✅ Yes | ✅ Yes |
+| OAuth via Databricks App Connection | App connection | Databricks | No | No |
+| API Key (PAT) | User-scoped | N/A | No | No |
 
 ## Known Limitations
 
-- OAuth tokens expire; the connector or calling code must handle token refresh.
-- PATs do not expire by default if no expiry is set; set an explicit expiry.
-- Service principal permissions must be explicitly granted; they do not inherit group permissions automatically in all scenarios. TODO: confirm group behavior.
-- Databricks OAuth scope value may differ by region or deployment type. TODO: confirm.
+- OAuth tokens expire; the connector or MCP tool must handle token refresh.
+- Service principal permissions in the Databricks workspace must be explicitly granted.
+- PATs are user-scoped and long-lived if no expiry is set; avoid for production deployments.
 
 ## Related
 
