@@ -20,7 +20,7 @@ Power Platform (including Copilot Studio) offers three broad options for outboun
 | Option | Connectivity Model | Infrastructure Required | Complexity | Best For |
 |---|---|---|---|---|
 | **Public** | Traffic travels over the public internet (TLS encrypted) | None beyond existing Databricks public endpoint | Low | Prototypes, dev/test, or environments where public internet access is acceptable |
-| **Private via On-Premises Data Gateway (OPDG)** | Traffic is routed through a self-hosted gateway agent running on a Windows VM in your network | Windows Server VM with network line-of-sight to Databricks | Medium | Organizations that already operate OPDG infrastructure or need a quick path to private connectivity |
+| **Private via On-Premises Data Gateway (OPDG)** | Traffic is routed through a self-hosted gateway agent running on a Windows VM in your network | Windows Server VM with network line-of-sight to Databricks | Medium | ❌ Not applicable for Databricks — OOB connector not supported over gateway; custom connectors cannot use OAuth over gateway |
 | **Private via Virtual Network (VNet) Integration** | Power Platform egress is bound to enterprise-managed Azure VNets using Enterprise Policy | Azure VNets in paired regions, delegated subnets, Enterprise Policy, managed environment | High | Enterprise scenarios requiring network-layer isolation and a cloud-native, VM-free approach |
 
 ---
@@ -44,20 +44,15 @@ In the public networking model, Copilot Studio connectors communicate with Datab
 
 ## Option 2: Private via On-Premises Data Gateway (OPDG)
 
-The On-Premises Data Gateway is a self-hosted agent that runs on a Windows Server VM within your network. Power Platform routes connector traffic through this gateway, which then forwards requests to on-premises or privately networked resources — including Databricks Private Endpoints.
+> ⚠️ **Not applicable for Databricks scenarios.** OPDG is listed here for completeness, but it cannot be used to connect Power Platform to Azure Databricks MCP endpoints. See the limitations below.
 
-**When to choose this option:**
-- Your organization already operates OPDG infrastructure and has experience managing gateway VMs.
-- You need private connectivity to Databricks but are not yet ready to adopt Power Platform Virtual Network integration.
-- You require a private path but your Power Platform environment is not in a region that supports VNet integration, or you do not have a managed environment license.
-- You want a path that does not require delegating Azure VNet subnets to Power Platform.
+The On-Premises Data Gateway is a self-hosted agent that runs on a Windows Server VM within your network. Power Platform routes connector traffic through this gateway, which then forwards requests to on-premises or privately networked resources.
 
-**Key considerations:**
-- OPDG requires a Windows Server VM that is maintained, patched, and sized appropriately. This introduces ongoing operational overhead compared to a cloud-native approach.
-- The gateway VM must have network line-of-sight to the Databricks Private Endpoint — typically via VNet peering or being deployed directly in the same VNet as the Private Endpoint.
-- High availability requires deploying multiple gateway nodes in a cluster.
-- OPDG is a mature, widely supported option and is a reasonable choice even for production scenarios when the operational model is already established.
-- For setup details, refer to: [Install an on-premises data gateway](https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-install)
+**Why OPDG does not work for Databricks:**
+- The out-of-box (OOB) Databricks connector for Power Platform does not support routing through an On-Premises Data Gateway.
+- Custom connectors in Power Platform cannot use OAuth authentication when routed through the On-Premises Data Gateway. Since Databricks MCP endpoints require OAuth (via Entra ID / service principal), this rules out OPDG for any custom connector approach as well.
+
+For private connectivity to Databricks from Power Platform, use **Option 3: VNet Integration** instead.
 
 ---
 
@@ -82,19 +77,15 @@ Power Platform Virtual Network integration (sometimes called VNet injection or e
 
 ## Choosing the Right Option
 
-Use the questions below to guide your decision:
+For Databricks scenarios, the choice is straightforward — OPDG is not viable (see Option 2 above), so the decision is between public and VNet integration:
 
 1. **Does your security policy require private network connectivity (no public internet)?**
-   - **No** → Public networking is likely sufficient. Start here for development or testing.
-   - **Yes** → Continue to question 2.
+   - **No** → Public networking is sufficient. Start here for development or testing.
+   - **Yes** → VNet Integration (Option 3) is the only supported private path for Databricks.
 
-2. **Does your organization already operate On-Premises Data Gateways?**
-   - **Yes** → OPDG may be the path of least resistance, especially if you need to move quickly or are not yet in a supported VNet region.
-   - **No** → Consider whether the operational overhead of introducing OPDG VMs is acceptable, or whether VNet integration is a better long-term fit.
-
-3. **Do you have (or can you obtain) managed Power Platform environments and the required Azure VNet infrastructure in supported paired regions?**
-   - **Yes** → VNet integration provides the cleanest cloud-native architecture.
-   - **No** → OPDG is the practical private option until the prerequisites are in place.
+2. **Do you have (or can you obtain) managed Power Platform environments and the required Azure VNet infrastructure in supported paired regions?**
+   - **Yes** → Proceed with VNet integration.
+   - **No** → Work with your platform team to provision the prerequisites. There is no OPDG fallback for Databricks connectivity.
 
 ---
 
