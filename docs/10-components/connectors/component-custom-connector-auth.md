@@ -74,6 +74,7 @@ Reference this component when:
 - Secrets (client secret) are stored in the connector connection and are not rotated automatically.
 - Custom connector definitions can be exported/imported as solution components for ALM.
 - Maximum response payload size is limited by Power Platform connector limits.
+- **On Behalf Of (OBO) authentication is not automatically configured by these steps.** The steps above establish an OAuth 2.0 client credentials flow (application identity), which does not propagate the signed-in user's identity to Databricks. If your scenario requires per-user access controls or delegated identity, you must separately configure OBO. Follow the [pattern-oauth-obo](../../20-patterns/authentication/pattern-oauth-obo.md) documentation to set up the required Entra ID permissions, connector configuration, and token exchange for OBO to work properly within the agent.
 
 ## Related
 
@@ -81,3 +82,4 @@ Reference this component when:
 - [component-pp-auth-models](../power-platform/component-pp-auth-models.md)
 - [component-apim-mcp-proxy-basics](../apim/component-apim-mcp-proxy-basics.md)
 - [pattern-oauth-client-credentials](../../20-patterns/authentication/pattern-oauth-client-credentials.md)
+- [pattern-oauth-obo](../../20-patterns/authentication/pattern-oauth-obo.md)
