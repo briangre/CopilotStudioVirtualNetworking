@@ -50,13 +50,13 @@ Reference this component when:
    - **Token URL**: `https://login.microsoftonline.com/{tenant-id}/oauth2/v2.0/token`
    - **Client ID**: Client ID from the Entra ID app registration.
    - **Client Secret**: Client secret from the Entra ID app registration.
-   - **Scope**: The Databricks OAuth scope. For Azure-hosted Databricks, use `2ff814a6-3304-4ab8-85cb-cd0e6f879c1d/.default` (this UUID is the well-known first-party Databricks application ID in Entra ID). Consult your Databricks admin if your deployment uses a different scope.
-3. Click **Save** or **Next** to proceed.
+   - **Scope**: The Databricks OAuth scope. For Azure-hosted Databricks, use `2ff814a6-3304-4ab8-85cb-cd0e6f879c1d/user_impersonation` (this UUID is the well-known first-party Databricks application ID in Entra ID). Consult your Databricks admin if your deployment uses a different scope.
+3. Click **Create** to proceed and create the connection. **NOTE:** Any errors here will indicate that the authentication settings may be incorrect.
 
 ### Step 5 — Complete and Publish
 
-1. Review the tool summary — Copilot Studio will display the actions discovered from the MCP server.
-2. Click **Add tool** (or **Finish**) to save the configuration.
+1. Review the tool summary — Copilot Studio will display the MCP Tools discovered from the MCP server.
+2. Click **Save** to save the configuration.
 3. Copilot Studio automatically creates a custom connector and connection in the background.
 4. **Publish** the agent to make the MCP tool available.
 
