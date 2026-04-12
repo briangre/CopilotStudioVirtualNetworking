@@ -2,8 +2,6 @@
 
 This matrix maps every validated configuration combination to its config path. Configurations are grouped by network path, then by whether APIM is used.
 
-> Legend: ✅ Supported · ⚠️ Limited/partial · ❌ Not supported · 🔲 TODO: confirm
-
 ## Public Network (no private networking required)
 
 | # | Power Platform Surface | Connector Type | Network Path | APIM | Databricks Endpoint | Config Path |
@@ -32,7 +30,7 @@ This matrix maps every validated configuration combination to its config path. C
 
 ### Connector Type
 - **OOB (Out-of-Box)** – Pre-built connector available in the Power Platform connector gallery. No custom code required. See [component-oob-connector-behavior](../10-components/connectors/component-oob-connector-behavior.md).
-- **Custom** – Developer-built connector using an OpenAPI spec. Required when OOB connector capabilities are insufficient. See [component-custom-connector-auth](../10-components/connectors/component-custom-connector-auth.md).
+- **Custom** – MCP Tool in Copilot Studio Agent. Required when OOB connector capabilities are insufficient. See [component-custom-connector-auth](../10-components/connectors/component-custom-connector-auth.md).
 
 ### Network Path
 - **Public** – Traffic flows over the public internet; Databricks endpoint is internet-accessible.
