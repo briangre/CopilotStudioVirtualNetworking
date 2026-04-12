@@ -51,7 +51,6 @@ that supports the Databricks MCP endpoint you need?
 - You need to transform request/response payloads.
 
 **Limitations:**
-- Requires developer effort to build and maintain the OpenAPI spec.
 - Must be registered and shared within the Power Platform environment.
 - Certificate management and secret rotation fall on the connector owner.
 
