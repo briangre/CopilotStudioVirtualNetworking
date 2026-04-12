@@ -45,7 +45,7 @@ data traversing the public internet?
 
 **Trade-offs:**
 - Traffic transits the public internet (mitigated by TLS + OAuth tokens).
-- Databricks workspace firewall must permit inbound from Power Platform IPs. TODO: confirm exact IP ranges.
+- Databricks workspace firewall must permit inbound from Power Platform IPs.
 - No network-layer isolation.
 
 → [pattern-public-direct](../20-patterns/connectivity/pattern-public-direct.md)  
@@ -58,7 +58,7 @@ data traversing the public internet?
 - No need for centralized policy enforcement or transformation at the gateway layer.
 
 **Trade-offs:**
-- Requires Azure VNet, Private Endpoint for Databricks, and on-premises data gateway (OPDG) or VNet data gateway for Power Platform egress.
+- Requires Azure VNet and a Private Endpoint for Databricks.
 - Higher setup complexity.
 
 → [pattern-private-end-to-end](../20-patterns/connectivity/pattern-private-end-to-end.md)
@@ -67,7 +67,6 @@ data traversing the public internet?
 
 **Use when:**
 - Private connectivity is required **and** you need centralized rate limiting, policy enforcement, or protocol translation.
-- Multiple Copilot Studio agents share a single gateway.
 
 **Trade-offs:**
 - APIM adds cost and operational overhead.
