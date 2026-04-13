@@ -43,26 +43,20 @@ Confirm all prerequisites are met before starting:
 
 > **Note on authentication**: No additional APIM policy configuration is needed to handle Databricks authentication — it is passed through automatically.
 
-### Step 5 — Deploy VNet Data Gateway
-
-1. Follow [component-pp-networking](../10-components/power-platform/component-pp-networking.md) § "Private Network Path (VNet Data Gateway)".
-2. Confirm the gateway is registered in Power Platform admin center and shows "Online".
-
-### Step 6 — Build and Register Custom Connector
+### Step 5 — Build and Register Custom Connector
 
 1. Follow [component-custom-connector-auth](../10-components/connectors/component-custom-connector-auth.md) § "Configuration Steps".
 2. Set the connector's host URL to the APIM frontend URL.
 3. Configure OAuth 2.0 client credentials for Power Platform → APIM authentication.
-4. Set the connector to use the VNet data gateway from Step 5.
-5. Test the connection — expect "Connected" status.
+4. Test the connection — expect "Connected" status.
 
-### Step 7 — Add Connector Action to Copilot Studio Agent
+### Step 6 — Add Connector Action to Copilot Studio Agent
 
 1. In Copilot Studio, open (or create) your agent.
-2. Add an action using the custom connector connection from Step 6.
+2. Add an action using the custom connector connection from Step 5.
 3. Map the user's question to the `ask_question` action input. TODO: confirm action name.
 
-### Step 8 — Validate End-to-End
+### Step 7 — Validate End-to-End
 
 1. Publish the agent and test in Copilot Studio test chat.
 2. Ask a sample question (e.g., "What are the top 10 products by revenue?").
@@ -74,7 +68,6 @@ Confirm all prerequisites are met before starting:
 
 - [ ] Private Endpoint DNS resolves to a private IP from within the VNet.
 - [ ] APIM test console returns HTTP 200 from mcpgenie.
-- [ ] VNet data gateway shows "Online" in Power Platform admin center.
 - [ ] Custom connector connection status is "Connected".
 - [ ] End-to-end Copilot Studio test returns a natural-language answer.
 - [ ] Databricks public network access can be disabled without breaking the integration.
@@ -84,7 +77,6 @@ Confirm all prerequisites are met before starting:
 | Symptom | Likely cause | Resolution |
 |---------|-------------|------------|
 | APIM cannot reach Databricks | DNS misconfiguration or Private Endpoint not ready | Verify DNS from APIM subnet; check Private Endpoint state |
-| VNet data gateway offline | VM or gateway service stopped | Restart gateway; check VM health |
 | Custom connector 404 | Wrong APIM URL or API suffix | Verify APIM URL and API path in connector definition |
 | Timeout | Genie Space SQL Warehouse not running | Start the warehouse; check auto-start is enabled |
 | Empty or unexpected answer | Genie Space not configured correctly | Review Genie Space data assets and instructions |
