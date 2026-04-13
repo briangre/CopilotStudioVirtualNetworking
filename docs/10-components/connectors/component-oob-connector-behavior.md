@@ -14,7 +14,6 @@ Reference this component when:
 
 - Power Platform environment with internet access (for public path) or configured VNets (for private path).
 - Valid Databricks workspace URL.
-- Authentication configured as described in [component-pp-auth-models](../power-platform/component-pp-auth-models.md).
 - Connector enabled by the Power Platform admin in the tenant's Data Loss Prevention (DLP) policy.
 
 ## Outputs / What "Done" Looks Like
