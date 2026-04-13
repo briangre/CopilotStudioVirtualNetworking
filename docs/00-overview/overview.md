@@ -13,7 +13,6 @@ Rather than writing one end-to-end guide per configuration, this set uses a **co
 | Config Paths | [`/30-config-paths`](../30-config-paths/) | Thin assembly guides for specific scenarios |
 | Decision Guides | [`/40-decision-guides`](../40-decision-guides/) | Flowcharts to pick the right config |
 | Matrix | [`/50-matrix`](../50-matrix/) | Configuration compatibility matrix |
-| Reference | [`/99-reference`](../99-reference/) | Glossary and links |
 
 ## Architecture Dimensions
 
