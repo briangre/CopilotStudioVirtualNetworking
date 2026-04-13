@@ -14,7 +14,6 @@ Confirm all prerequisites are met before starting:
 
 - [ ] Databricks workspace provisioned with public network access **enabled**.
 - [ ] AI/BI Genie Space created and a SQL Warehouse associated. See [component-dbx-mcpgenie](../10-components/databricks/component-dbx-mcpgenie.md).
-- [ ] Entra ID app registration created with Databricks API permission. See [component-dbx-auth](../10-components/databricks/component-dbx-auth.md).
 - [ ] Power Platform environment created (Copilot Studio enabled).
 - [ ] Power Platform admin has verified the OOB Databricks connector is not blocked by DLP policy. See [component-oob-connector-behavior](../10-components/connectors/component-oob-connector-behavior.md).
 
