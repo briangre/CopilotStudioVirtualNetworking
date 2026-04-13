@@ -22,7 +22,7 @@ This documentation uses a **components → patterns → config-paths** model to 
 2. **Want to compare all options?** → [docs/50-matrix/matrix-configurations.md](./docs/50-matrix/matrix-configurations.md)
 3. **Understand the doc structure** → [docs/00-overview/how-to-use-this-docs.md](./docs/00-overview/how-to-use-this-docs.md)
 
-## Supported Configurations
+## Possible Configurations
 
 | # | Connector | Network | APIM | Endpoint | Config Path |
 |---|-----------|---------|------|----------|-------------|
