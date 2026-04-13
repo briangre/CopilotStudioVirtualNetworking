@@ -17,7 +17,7 @@ This documentation uses a **components → patterns → config-paths** model to 
 
 ## Quick Start
 
-1. **Not sure where to start?** → [docs/40-decision-guides/decision-which-connector.md](./docs/40-decision-guides/decision-which-connector.md)
+1. **Not sure where to start?** → [docs/40-decision-guides](./docs/40-decision-guides/)
 2. **Want to compare all options?** → [docs/50-matrix/matrix-configurations.md](./docs/50-matrix/matrix-configurations.md)
 3. **Understand the doc structure** → [docs/00-overview/how-to-use-this-docs.md](./docs/00-overview/how-to-use-this-docs.md)
 
