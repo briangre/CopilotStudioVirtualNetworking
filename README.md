@@ -32,7 +32,3 @@ This documentation uses a **components → patterns → config-paths** model to 
 | 04 | Custom | Private | Yes | mcpgenie | [config-04](./docs/30-config-paths/config-04-pp-custom-private-apim-dbx-genie.md) |
 | 05 | Custom | Public | No | mcpsql | [config-05](./docs/30-config-paths/config-05-pp-custom-public-dbx-sql.md) |
 | 06 | Custom | Private | No | mcpsql | [config-06](./docs/30-config-paths/config-06-pp-custom-private-dbx-sql.md) |
-
-## Notation
-
-- ✅ Supported · ⚠️ Limited/partial · ❌ Not supported · 🔲 TODO: confirm
