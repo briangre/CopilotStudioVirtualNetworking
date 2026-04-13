@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Describes how to configure Azure API Management (APIM) to expose Databricks MCP endpoints (`mcpsql`, `mcpgenie`) to Power Platform with a stable, APIM-managed URL.
+Describes Azure API Management (APIM) as it relates to exposing Azure Databricks MCP endpoints (`mcpsql`, `mcpgenie`) to Power Platform with a stable, APIM-managed URL.
 
 ## When to Use
 
