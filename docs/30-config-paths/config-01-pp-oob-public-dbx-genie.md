@@ -13,15 +13,43 @@ Confirm all prerequisites are met before starting:
 
 - [ ] Databricks workspace provisioned with public network access **enabled**.
 - [ ] AI/BI Genie Space created and a SQL Warehouse associated. See [component-dbx-mcpgenie](../10-components/databricks/component-dbx-mcpgenie.md).
+- [ ] MCP server enabled for the Genie Space (see Step 1 below).
 - [ ] Power Platform environment created (Copilot Studio enabled).
 - [ ] Power Platform admin has verified the OOB Databricks connector is not blocked by DLP policy. See [component-oob-connector-behavior](../10-components/connectors/component-oob-connector-behavior.md).
 
 ## Steps
 
-### Step 1 — Configure the mcpgenie Endpoint
+### Step 1 — Configure the Databricks Genie MCP Endpoint
 
-1. Follow [component-dbx-mcpgenie](../10-components/databricks/component-dbx-mcpgenie.md) § "Configuration Steps".
-2. Note: MCP Genie endpoint URL and Genie Space ID.
+1. In your Databricks workspace, navigate to **AI/BI > Genie** and open (or create) a Genie Space.
+2. Enable the MCP server for the Genie Space: in the Genie Space settings, turn on **MCP Server**. Once enabled, the endpoint will appear automatically in **Agents > MCP Servers**.
+3. The endpoint URL has the form `https://<workspace-host>/api/2.0/mcp/genie/<genie-space-id>` and is shown on the **Agents > MCP Servers** page.
+
+> For full details on enabling and using Databricks managed MCP servers, see [Use Databricks managed MCP servers](https://learn.microsoft.com/en-us/azure/databricks/generative-ai/mcp/managed-mcp).
+
+### Step 2 — Note the Databricks Hostname and SQL Warehouse HTTP Path
+
+You will need two values from your Databricks workspace when creating the connector connection:
+
+| Value | Where to find it |
+|-------|-----------------|
+| **Databricks workspace host name** | The hostname portion of your workspace URL, e.g. `adb-<workspace-id>.<region>.azuredatabricks.net`. Visible in the browser address bar when logged in to your workspace. |
+| **SQL Warehouse HTTP path** | In your workspace: **SQL > SQL Warehouses** → select your warehouse → **Connection Details** tab → copy the **HTTP path** value, e.g. `/sql/1.0/warehouses/<warehouse-id>`. |
+
+> For step-by-step instructions on finding these values, see [Get connection details for a Databricks compute resource](https://learn.microsoft.com/en-us/azure/databricks/integrations/compute-details).
+
+### Step 3 — Add the Genie Tool to Your Copilot Studio Agent
+
+1. In [Copilot Studio](https://copilotstudio.microsoft.com), open (or create) your agent.
+2. Select **Tools** > **+ Add a tool** (in some Copilot Studio versions this appears as **Actions** > **+ Add an action**).
+3. In the search box, type **azure databricks** to filter the connector gallery.
+4. Filter the results on **MCP** and select the **Genie** action.
+5. When prompted to create a connection:
+   a. Select the **authentication type**: **OAuth** (recommended) or **API key**.
+   b. Enter the **Databricks workspace host name** from Step 2.
+   c. Enter the **SQL Warehouse HTTP path** from Step 2.
+6. Select **Create connection** and complete any OAuth consent flow if prompted.
+7. Confirm the connection status shows **Connected**.
 
 ### Step 2 — Create the OOB Connector Connection
 
@@ -35,6 +63,16 @@ Confirm all prerequisites are met before starting:
 2. Add an action and select the Databricks connector connection created in Step 2.
 3. Choose the `ask_question` (or equivalent) action. TODO: confirm action name.
 4. Map the user's question to the action input.
+### Step 4 — Share the Connection
+
+After the connection is created, you must enable connection sharing so users of the published agent can use the same connection:
+
+1. In your agent, open **Settings** > **Connections**.
+2. Find the Azure Databricks tool connection and select **See details**.
+3. Under **Connection parameters**, enable **Allow permission to share parameters**.
+4. Save the settings.
+
+> This step is required for end users of the published agent to successfully use the tool connection. Without it, users may receive authentication errors at runtime.
 
 ### Step 4 — Validate End-to-End
 
@@ -46,7 +84,8 @@ Confirm all prerequisites are met before starting:
 ## Validation Checklist
 
 - [ ] OOB connector connection status is "Connected".
-- [ ] Copilot Studio agent action returns HTTP 200 from the MCP endpoint.
+- [ ] Connection sharing enabled ("Allow permission to share parameters" turned on).
+- [ ] Copilot Studio agent tool returns a response from the MCP endpoint.
 - [ ] Natural-language answer is displayed in the test chat.
 - [ ] Databricks AI/BI Genie Space query history shows the question was processed.
 
@@ -54,7 +93,9 @@ Confirm all prerequisites are met before starting:
 
 | Symptom | Likely cause | Resolution |
 |---------|-------------|------------|
-| 401 on connector test | OAuth consent not completed | Re-run the OAuth consent flow in the connector connection setup |
-| DLP policy error | Connector blocked | Ask Power Platform admin to add connector to allowed list |
-| Timeout | Genie Space SQL Warehouse not running | Start the warehouse; check auto-start is enabled |
+| 401 on connector test | OAuth consent not completed or API key invalid | Re-create the connection and complete the OAuth consent flow, or verify the API key |
+| Users receive auth errors after publishing | Connection sharing not enabled | Follow Step 4 — enable "Allow permission to share parameters" in agent connection settings |
+| DLP policy error | Connector blocked | Ask Power Platform admin to add the Azure Databricks connector to the allowed list |
+| Timeout | Genie Space SQL Warehouse not running | Start the warehouse; check that auto-start is enabled |
 | Empty or unexpected answer | Genie Space not configured correctly | Review Genie Space data assets and instructions |
+| Cannot find "Azure Databricks" in tool search | Connector not visible | Confirm you are searching for **azure databricks** and filtering on **MCP** |
