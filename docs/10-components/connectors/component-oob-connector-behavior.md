@@ -14,8 +14,9 @@ Reference this component when:
 
 - Power Platform environment with internet access (for public path) or configured VNets (for private path).
 - Valid Databricks workspace URL.
-- Authentication configured as described in [component-pp-auth-models](../power-platform/component-pp-auth-models.md).
 - Connector enabled by the Power Platform admin in the tenant's Data Loss Prevention (DLP) policy.
+
+> **No separate auth pre-configuration required.** Authentication (OAuth or API key) is configured inline when you create the connector connection. You do not need to pre-register a service principal or set up credentials before starting the connection wizard.
 
 ## Outputs / What "Done" Looks Like
 
@@ -33,14 +34,17 @@ The full set of actions exposed by the OOB connector is documented in the [Azure
 
 ## Configuration Steps
 
-1. In Copilot Studio, add a new tool to your agent and search for the **Azure Databricks** connector.
-2. Filter the displayed actions by typing **MCP** in the search/filter box to surface the **Genie** action.
-3. Select the **Genie** action and choose **oAuth** as the authentication method (these docs cover oAuth only; API key is also available but not described here).
-4. Provide the following connection details:
-   - **Azure Databricks workspace host name** – the hostname portion of your Databricks workspace URL (e.g., `adb-<workspace-id>.<region>.azuredatabricks.net`).
-   - **SQL Warehouse HTTP path** – found in the Databricks UI under **SQL Warehouses → your warehouse → Connection details → HTTP path** (e.g., `/sql/1.0/warehouses/<warehouse-id>`).
-5. Complete the oAuth consent flow when prompted.
-6. Confirm the connection status is **Connected**.
+1. In Copilot Studio, open (or create) your agent and select **Tools** (or **Actions**) > **+ Add a tool**.
+2. In the search box, type **azure databricks** to filter the connector gallery.
+3. Filter the results on **MCP** and select the **Genie** action.
+4. When prompted to create a connection, select the **authentication type**:
+   - **OAuth** – recommended; an OAuth consent flow will be initiated in the browser during connection creation.
+   - **API key** – enter a Databricks personal access token.
+5. Provide the following connection details:
+   - **Azure Databricks workspace host name** – the hostname portion of your Databricks workspace URL (e.g., `adb-<workspace-id>.<region>.azuredatabricks.net`). Visible in the browser address bar when logged in to your workspace.
+   - **SQL Warehouse HTTP path** – found in the Databricks UI under **SQL > SQL Warehouses** → select your warehouse → **Connection Details** tab (e.g., `/sql/1.0/warehouses/<warehouse-id>`). See [Get connection details for a Databricks compute resource](https://learn.microsoft.com/en-us/azure/databricks/integrations/compute-details).
+6. Select **Create connection** and complete any OAuth consent flow if prompted.
+7. Confirm the connection status is **Connected**.
 
 ## Validation Steps
 
