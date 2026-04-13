@@ -54,7 +54,7 @@ Confirm all prerequisites are met before starting:
 
 | Symptom | Likely cause | Resolution |
 |---------|-------------|------------|
-| 401 on connector test | OAuth consent not completed | Re-run the oAuth consent flow in the connector connection setup |
+| 401 on connector test | OAuth consent not completed | Re-run the OAuth consent flow in the connector connection setup |
 | DLP policy error | Connector blocked | Ask Power Platform admin to add connector to allowed list |
 | Timeout | Genie Space SQL Warehouse not running | Start the warehouse; check auto-start is enabled |
 | Empty or unexpected answer | Genie Space not configured correctly | Review Genie Space data assets and instructions |

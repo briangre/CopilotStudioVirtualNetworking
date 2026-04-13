@@ -70,7 +70,7 @@ Confirm all prerequisites are met before starting:
 
 | Symptom | Likely cause | Resolution |
 |---------|-------------|------------|
-| 401 on connector test | OAuth consent not completed | Re-run the oAuth consent flow in the connector connection setup |
+| 401 on connector test | OAuth consent not completed | Re-run the OAuth consent flow in the connector connection setup |
 | Connector cannot reach Databricks | DNS not resolving private IP from gateway | Verify DNS zone linkage; check gateway VM network config |
 | VNet data gateway offline | VM or gateway service stopped | Restart gateway; check VM health |
 | OOB connector ignores VNet gateway | OOB connector may not support VNet gateway routing | Switch to custom connector ([config-02](config-02-pp-custom-private-apim-dbx-sql.md)) or confirm with Microsoft support |
