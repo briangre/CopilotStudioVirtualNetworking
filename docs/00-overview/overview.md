@@ -29,7 +29,7 @@ private or public network paths.
 
 ## Quick Start
 
-→ Not sure where to start? Use the [decision guides](../40-decision-guides/decision-which-connector.md).  
+→ Not sure where to start? Use the [decision guides](../40-decision-guides/).  
 → Need to compare options at a glance? See the [configuration matrix](../50-matrix/matrix-configurations.md).  
 → Understand how to read these docs: [How to Use This Docs](how-to-use-this-docs.md).
 
