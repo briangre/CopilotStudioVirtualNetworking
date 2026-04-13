@@ -45,6 +45,7 @@ The full set of actions exposed by the OOB connector is documented in the [Azure
    - **SQL Warehouse HTTP path** – found in the Databricks UI under **SQL > SQL Warehouses** → select your warehouse → **Connection Details** tab (e.g., `/sql/1.0/warehouses/<warehouse-id>`). See [Get connection details for a Databricks compute resource](https://learn.microsoft.com/en-us/azure/databricks/integrations/compute-details).
 6. Select **Create connection** and complete any OAuth consent flow if prompted.
 7. Confirm the connection status is **Connected**.
+8. Enable connection sharing: in the agent **Settings** > **Connections**, find the tool connection, select **See details**, open **Connection parameters**, and enable **Allow permission to share parameters**. This allows published agent users to use the connection.
 
 ## Validation Steps
 

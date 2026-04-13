@@ -53,7 +53,18 @@ You will need two values from your Databricks workspace when creating the connec
 6. Select **Create connection** and complete any OAuth consent flow if prompted.
 7. Confirm the connection status shows **Connected**.
 
-### Step 4 — Validate End-to-End
+### Step 4 — Share the Connection
+
+After the connection is created, you must enable connection sharing so users of the published agent can use the same connection:
+
+1. In your agent, open **Settings** > **Connections**.
+2. Find the Azure Databricks tool connection and select **See details**.
+3. Under **Connection parameters**, enable **Allow permission to share parameters**.
+4. Save the settings.
+
+> This step is required for end users of the published agent to successfully use the tool connection. Without it, users may receive authentication errors at runtime.
+
+### Step 5 — Validate End-to-End
 
 1. Publish the agent and test in the Copilot Studio test chat.
 2. Ask a sample question (e.g., "What are the top 10 products by revenue?").
@@ -63,6 +74,7 @@ You will need two values from your Databricks workspace when creating the connec
 ## Validation Checklist
 
 - [ ] OOB connector connection status is "Connected".
+- [ ] Connection sharing enabled ("Allow permission to share parameters" turned on).
 - [ ] Copilot Studio agent tool returns a response from the MCP endpoint.
 - [ ] Natural-language answer is displayed in the test chat.
 - [ ] Databricks AI/BI Genie Space query history shows the question was received.
@@ -72,6 +84,7 @@ You will need two values from your Databricks workspace when creating the connec
 | Symptom | Likely cause | Resolution |
 |---------|-------------|------------|
 | 401 on connector test | OAuth consent not completed or API key invalid | Re-create the connection and complete the OAuth consent flow, or verify the API key |
+| Users receive auth errors after publishing | Connection sharing not enabled | Follow Step 4 — enable "Allow permission to share parameters" in agent connection settings |
 | DLP policy error | Connector blocked | Ask Power Platform admin to add the Azure Databricks connector to the allowed list |
 | Timeout | Genie Space SQL Warehouse not running | Start the warehouse; check that auto-start is enabled |
 | Empty or unexpected answer | Genie Space not configured correctly | Review Genie Space data assets and instructions |
