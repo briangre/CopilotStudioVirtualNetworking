@@ -7,8 +7,6 @@
 → [pattern-public-direct](../20-patterns/connectivity/pattern-public-direct.md)  
 → [pattern-dbx-mcp-genie](../20-patterns/databricks/pattern-dbx-mcp-genie.md)
 
-> **No separate auth pre-configuration required.** The OOB connector handles authentication (OAuth or API key) inline when you create the connection in Copilot Studio — you do not need to pre-register a service principal or configure credentials outside of the connector setup.
-
 ## Prerequisites
 
 Confirm all prerequisites are met before starting:
@@ -53,6 +51,18 @@ You will need two values from your Databricks workspace when creating the connec
 6. Select **Create connection** and complete any OAuth consent flow if prompted.
 7. Confirm the connection status shows **Connected**.
 
+### Step 2 — Create the OOB Connector Connection
+
+1. Follow [component-oob-connector-behavior](../10-components/connectors/component-oob-connector-behavior.md) § "Configuration Steps".
+2. Supply the endpoint URL from Step 1.
+3. Test the connection — expect "Connected" status.
+
+### Step 3 — Add Connector Action to Copilot Studio Agent
+
+1. In Copilot Studio, open (or create) your agent.
+2. Add an action and select the Databricks connector connection created in Step 2.
+3. Choose the `ask_question` (or equivalent) action. TODO: confirm action name.
+4. Map the user's question to the action input.
 ### Step 4 — Share the Connection
 
 After the connection is created, you must enable connection sharing so users of the published agent can use the same connection:
@@ -64,7 +74,7 @@ After the connection is created, you must enable connection sharing so users of 
 
 > This step is required for end users of the published agent to successfully use the tool connection. Without it, users may receive authentication errors at runtime.
 
-### Step 5 — Validate End-to-End
+### Step 4 — Validate End-to-End
 
 1. Publish the agent and test in the Copilot Studio test chat.
 2. Ask a sample question (e.g., "What are the top 10 products by revenue?").
@@ -77,7 +87,7 @@ After the connection is created, you must enable connection sharing so users of 
 - [ ] Connection sharing enabled ("Allow permission to share parameters" turned on).
 - [ ] Copilot Studio agent tool returns a response from the MCP endpoint.
 - [ ] Natural-language answer is displayed in the test chat.
-- [ ] Databricks AI/BI Genie Space query history shows the question was received.
+- [ ] Databricks AI/BI Genie Space query history shows the question was processed.
 
 ## Troubleshooting
 

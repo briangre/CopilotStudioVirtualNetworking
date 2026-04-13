@@ -5,8 +5,7 @@
 ## Applicable Pattern
 
 → [pattern-private-end-to-end](../20-patterns/connectivity/pattern-private-end-to-end.md)  
-→ [pattern-dbx-mcp-genie](../20-patterns/databricks/pattern-dbx-mcp-genie.md)  
-→ [pattern-oauth-client-credentials](../20-patterns/authentication/pattern-oauth-client-credentials.md)
+→ [pattern-dbx-mcp-genie](../20-patterns/databricks/pattern-dbx-mcp-genie.md)
 
 ## Prerequisites
 
@@ -14,23 +13,17 @@ Confirm all prerequisites are met before starting:
 
 - [ ] Azure VNet provisioned in the same region as the Databricks workspace.
 - [ ] Databricks workspace with AI/BI Genie Space and associated SQL Warehouse. See [component-dbx-mcpgenie](../10-components/databricks/component-dbx-mcpgenie.md).
-- [ ] Entra ID app registration created with Databricks API permission. See [component-dbx-auth](../10-components/databricks/component-dbx-auth.md).
 - [ ] Power Platform environment with private network support (Premium license or pay-per-use). See [component-pp-networking](../10-components/power-platform/component-pp-networking.md).
 - [ ] Power Platform admin has verified the OOB Databricks connector is not blocked by DLP policy. See [component-oob-connector-behavior](../10-components/connectors/component-oob-connector-behavior.md).
 
 ## Steps
 
-### Step 1 — Configure Databricks Authentication
-
-1. Follow [component-dbx-auth](../10-components/databricks/component-dbx-auth.md) § "Option 1: OAuth 2.0 – Client Credentials".
-2. Note: `client_id`, `client_secret`, `tenant_id`, and Databricks workspace URL.
-
-### Step 2 — Configure the mcpgenie Endpoint
+### Step 1 — Configure the mcpgenie Endpoint
 
 1. Follow [component-dbx-mcpgenie](../10-components/databricks/component-dbx-mcpgenie.md) § "Configuration Steps".
 2. Note: MCP Genie endpoint URL and Genie Space ID.
 
-### Step 3 — Deploy Private Endpoint for Databricks
+### Step 2 — Deploy Private Endpoint for Databricks
 
 1. Follow [component-public-vs-private](../10-components/networking/component-public-vs-private.md) § "Private Path" configuration steps.
 2. Confirm DNS resolution of the Databricks hostname returns a private IP from within the VNet.
@@ -61,7 +54,7 @@ Confirm all prerequisites are met before starting:
 - [ ] OOB connector connection status is "Connected".
 - [ ] Copilot Studio agent action returns HTTP 200 from the MCP endpoint.
 - [ ] Natural-language answer is displayed in the test chat.
-- [ ] Databricks audit log shows the service principal's API call.
+- [ ] Databricks AI/BI Genie Space query history shows the question was processed.
 
 ## Troubleshooting
 
