@@ -14,7 +14,6 @@ This documentation uses a **components → patterns → config-paths** model to 
 | Config Paths | [docs/30-config-paths](./docs/30-config-paths/) | Step-by-step scenario guides |
 | Decision Guides | [docs/40-decision-guides](./docs/40-decision-guides/) | Choose your path |
 | Matrix | [docs/50-matrix](./docs/50-matrix/) | All configurations at a glance |
-| Reference | [docs/99-reference](./docs/99-reference/) | Glossary and links |
 
 ## Quick Start
 
