@@ -1,6 +1,6 @@
 # Overview
 
-This documentation set describes how to connect **Copilot Studio agents** to **Azure Databricks** MCP endpoints (`mcpsql` and `mcpgenie`) across a range of connectivity and authentication architectures.
+This documentation set describes how to connect **Copilot Studio agents** to **Azure Databricks** MCP endpoints (`mcpsql` and `mcpgenie`) over **private Azure networking**, across a range of connectivity and authentication architectures.
 
 ## Purpose
 

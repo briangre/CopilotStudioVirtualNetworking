@@ -1,6 +1,6 @@
-# Copilot Studio → Azure Databricks
+# Copilot Studio over Private Networking to Azure Databricks
 
-Componentized documentation for connecting **Copilot Studio agents** to **Azure Databricks** MCP endpoints (`mcpsql`, `mcpgenie`) across multiple connectivity and authentication architectures.
+Componentized documentation for connecting **Copilot Studio agents** to **Azure Databricks** MCP endpoints (`mcpsql`, `mcpgenie`) over **private Azure networking**, covering multiple connectivity and authentication architectures.
 
 ## How to Navigate
 
