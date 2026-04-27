@@ -16,7 +16,7 @@ Rather than writing one end-to-end guide per configuration, this set uses a **co
 
 ## Architecture Dimensions
 
-Each configuration is defined by choices along four dimensions:
+Each configuration may be defined by one or more of these choices along four dimensions:
 
 1. **Copilot Studio agent** – the Power Platform surface making the outbound connection
 2. **Connector type** – Out-of-box (OOB) vs. Custom connector
