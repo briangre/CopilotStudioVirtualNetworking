@@ -1,6 +1,6 @@
 # Overview
 
-This documentation set describes how to connect **Copilot Studio agents** to **Azure Databricks** MCP endpoints (`mcpsql` and `mcpgenie`) across a range of connectivity and authentication architectures.
+This documentation set describes how to connect **Copilot Studio agents** to **backend data services** over **private Azure networking**, using a pluggable architecture that accommodates multiple data service targets, connectivity models, and authentication approaches.
 
 ## Purpose
 
@@ -16,12 +16,12 @@ Rather than writing one end-to-end guide per configuration, this set uses a **co
 
 ## Architecture Dimensions
 
-Each configuration is defined by choices along four dimensions:
+Each configuration may be defined by one or more of these choices along four dimensions:
 
-1. **Copilot Studio agent** – the Power Platform surface used to connect to Databricks
+1. **Copilot Studio agent** – the Power Platform surface making the outbound connection
 2. **Connector type** – Out-of-box (OOB) vs. Custom connector
 3. **Network path** – Public (internet-routable) vs. Private (VNet/Private Endpoint)
-4. **Databricks endpoint** – `mcpsql` (SQL warehouse) vs. `mcpgenie` (AI/BI Genie)
+4. **Target data service endpoint** – the specific service and endpoint being reached (e.g., a SQL endpoint, an AI/BI query interface, or another MCP-compatible service)
 
 APIM is an optional proxy layer applicable to provide additional logging and filtering over either the 
 private or public network paths.
@@ -34,5 +34,5 @@ private or public network paths.
 
 ## Scope
 
-- **In scope**: Connectivity, authentication, and network configuration for Copilot Studio agents ↔ Databricks.
-- **Out of scope**: Databricks workspace provisioning, Power Platform environment setup, Azure subscription management (except where directly referenced).
+- **In scope**: Connectivity, authentication, and network configuration for Copilot Studio agents connecting to backend data services over private Azure networking.
+- **Out of scope**: Data service-specific provisioning, Power Platform environment setup, Azure subscription management (except where directly referenced).
